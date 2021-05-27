@@ -24,7 +24,7 @@
    <children>
       <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox prefHeight="200.0" prefWidth="435.0" styleClass="right-bar" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="435.0" styleClass="right-bar" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
                      <children>
@@ -35,7 +35,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0" stylesheets="@../values/style.css" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0" VBox.vgrow="NEVER">
                      <VBox.margin>
                         <Insets left="30.0" right="30.0" />
                      </VBox.margin>
@@ -56,7 +56,7 @@
                      </styleClass>
                   </HBox>
                   <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
-                  <VBox fx:id="adBox" alignment="CENTER" prefHeight="535.0" prefWidth="100.0" stylesheets="@../../../../../style.css">
+                  <VBox fx:id="adBox" alignment="CENTER" prefHeight="535.0" prefWidth="100.0">
                      <VBox.margin>
                         <Insets left="50.0" right="50.0" />
                      </VBox.margin>
@@ -109,7 +109,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" styleClass="search-button" stylesheets="@style.css" text="See details" textFill="#dad6d6">
+                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" styleClass="search-button" stylesheets="@style.css" textFill="#dad6d6">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -165,7 +165,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Pane prefHeight="84.0" prefWidth="96.0" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="380.0" styleClass="free-delivery-card" stylesheets="@../values/style.css">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="380.0" styleClass="free-delivery-card">
                            <children>
                               <VBox alignment="CENTER" prefHeight="100.0" prefWidth="295.0">
                                  <children>
@@ -178,17 +178,15 @@
                               </VBox>
                               <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/ic_delivery.png" />
                                  </image>
                               </ImageView>
                            </children>
                         </HBox>
                         <Pane prefHeight="84.0" prefWidth="96.0" HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="336.0" styleClass="shopping-online-card" stylesheets="@../values/style.css">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="336.0" styleClass="shopping-online-card">
                            <children>
                               <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/ic_stopwatch.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -201,7 +199,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ScrollPane fx:id="scroll" prefHeight="570.0" prefWidth="785.0" styleClass="transparent" stylesheets="@../../../../../style.css">
+                        <ScrollPane fx:id="scroll" prefHeight="570.0" prefWidth="785.0" styleClass="transparent">
                            <content>
                               <GridPane fx:id="grid">
                                  <rowConstraints>

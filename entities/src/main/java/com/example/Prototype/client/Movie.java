@@ -26,9 +26,6 @@ public class Movie {
     
     @Column(name="movie_time")
     private Time screeningTime;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "list_id")
-    private MovieList list;
     
     Movie(){
     }

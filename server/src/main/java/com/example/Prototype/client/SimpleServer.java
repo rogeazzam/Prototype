@@ -2,7 +2,12 @@ package com.example.Prototype.client;
 
 import com.example.Prototype.client.ocsf.AbstractServer;
 import com.example.Prototype.client.ocsf.ConnectionToClient;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -18,17 +23,48 @@ public class SimpleServer extends AbstractServer {
 		
 	}
 
+	private static SessionFactory getSessionFactory() throws HibernateException {
+		Configuration configuration = new Configuration();
+		configuration.addAnnotatedClass(Movie.class);
+		configuration.addAnnotatedClass(MovieList.class);
+		configuration.addAnnotatedClass(Branch.class);
+		configuration.addAnnotatedClass(BranchesList.class);
+		configuration.addAnnotatedClass(Time.class);
+		ServiceRegistry serviceRegistry = (new StandardServiceRegistryBuilder())
+				.applySettings(configuration.getProperties()).build();
+		return configuration.buildSessionFactory(serviceRegistry);
+	}
+
 	private static List<Branch> getAllBranches() throws Exception {
-		CriteriaBuilder builder = session.getCriteriaBuilder();
-		CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
-		query.from(Branch.class);
-		List<Branch> data = session.createQuery(query).getResultList();
-		return data;
+		try {
+			SessionFactory sessionFactory = getSessionFactory();
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
+			query.from(Branch.class);
+			List<Branch> data = session.createQuery(query).getResultList();
+			session.getTransaction().commit();
+			return data;
+		} catch (Exception var10) {
+			if (session != null) {
+				session.getTransaction().rollback();
+			}
+
+			System.err.println("An error occured, changes have been rolled back.");
+			var10.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return null;
 	}
 
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		String msgString = msg.toString();
+		System.out.println(msgString);
 		if (msgString.startsWith("#showBranches")) {
 			try {
 				List<Branch> branches=getAllBranches();

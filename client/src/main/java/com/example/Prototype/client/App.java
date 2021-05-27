@@ -19,15 +19,14 @@ public class App extends Application {
     private static Scene scene;
     public static Stage myStage;
     private SimpleClient client;
-    //private SimpleClient client;
     public static Stack<Scene> sceneStack=new Stack<Scene>();
 
     @Override
     public void start(Stage stage) throws IOException {
     	//EventBus.getDefault().register(this);
-    	//client = SimpleClient.getClient();
-    //	client.openConnection();
-      //  scene = new Scene(loadFXML("primary"));
+    	client = SimpleClient.getClient();
+    	client.openConnection();
+        scene = new Scene(loadFXML("primary"));
         stage.setScene(scene);
         App.sceneStack.push(scene);
         App.myStage=stage;

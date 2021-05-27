@@ -51,14 +51,11 @@ public class SecondaryController implements Initializable{
     int column=0,row=1;
 
     int entered=0;
-    
+
+
     @FXML
-    void BranchOpen(ActionEvent event) {
-		try {
-			SimpleClient.getClient().sendToServer("#showBranches");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    void BranchOpen(ActionEvent event) throws IOException {
+        SimpleClient.getClient().sendToServer("#showBranches");
     }
 
     @FXML
@@ -82,7 +79,7 @@ public class SecondaryController implements Initializable{
 	void display(BranchesList branchesList) throws IOException {
         EventBus.getDefault().register(this);
         entered++;
-        if(entered==1)
+        if(entered==0)
             this.branch=branchesList;
         List<Branch> branches=branchesList.getBranches();
         for(Branch branch:branches) {
