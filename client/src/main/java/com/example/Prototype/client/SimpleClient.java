@@ -1,10 +1,9 @@
 package com.example.Prototype.client;
 
+import com.example.Prototype.client.ocsf.AbstractClient;
 import org.greenrobot.eventbus.EventBus;
 
-import com.example.CinemaPrototype.Classes.Branch;
-import com.example.CinemaPrototype.Classes.MovieList;
-import com.example.CinemaPrototype.ocsf.AbstractClient;
+import java.util.List;
 
 public class SimpleClient extends AbstractClient {
 	
@@ -16,7 +15,9 @@ public class SimpleClient extends AbstractClient {
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
-		if(msg.getClass().equals(MovieList.class)) {
+		if(msg.getClass().equals(BranchesList.class)) {
+			EventBus.getDefault().post(new BranchesList((BranchesList) msg));
+		}else if(msg.getClass().equals(MovieList.class)){
 			EventBus.getDefault().post(new MovieList((MovieList) msg));
 		}
 	}

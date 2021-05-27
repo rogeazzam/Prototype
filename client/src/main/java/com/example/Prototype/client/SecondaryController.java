@@ -2,19 +2,12 @@ package com.example.Prototype.client;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-
-import com.example.CinemaPrototype.Classes.Branch;
-import com.example.CinemaPrototype.Classes.Movie;
-import com.example.CinemaPrototype.Classes.MovieList;
-import com.example.CinemaPrototype.Classes.Time;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,17 +46,16 @@ public class SecondaryController implements Initializable{
     @FXML
     private TextField SearchText;
     
-    Branch[] branch;
+    BranchesList branch;
+
+    int column=0,row=1;
+
+    int entered=0;
     
     @FXML
     void BranchOpen(ActionEvent event) {
 		try {
 			SimpleClient.getClient().sendToServer("#showBranches");
-			int i=0;
-			while(i<2) {
-				display(branch[i],0,i+1);
-				i++;
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -72,37 +64,52 @@ public class SecondaryController implements Initializable{
     @FXML
     void SearchBtn(ActionEvent event) throws IOException {
     	grid.getChildren().clear();
-    	for(int i=0;i<branch.length;i++) {
-    		if(branch[i].getCity().toLowerCase().contains(SearchText.getText().toLowerCase())) {
-    			display(branch[i],0,i+1);
-    		}
-    	}
+    	List<Branch> branches1=new ArrayList<Branch>();
+    	branches1=branch.getBranches();
+        BranchesList branches2=new BranchesList();
+    	for(int i=0;i<branches1.size();i++) {
+            if (branches1.get(i).getCity().toLowerCase().contains(SearchText.getText().toLowerCase()))
+                branches2.setBranch(branches1.get(i));
+        }
+    		display(branches2);
     }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 	}
-	
-	void display(Branch branch,int column,int row) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader();
-		fxmlLoader.setLocation(this.getClass().getResource("branches.fxml"));
-		AnchorPane anchorPane = (AnchorPane)fxmlLoader.load();
-	
-		BranchesController itemController =fxmlLoader.getController();
-		itemController.setData(branch);
-		
-		grid.add(anchorPane,column,row);
-        //set grid width
-        grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-        grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-        grid.setMaxWidth(Region.USE_PREF_SIZE);
 
-        //set grid height
-        grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-        grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        grid.setMaxHeight(Region.USE_PREF_SIZE);
+	@Subscribe
+	void display(BranchesList branchesList) throws IOException {
+        EventBus.getDefault().register(this);
+        entered++;
+        if(entered==1)
+            this.branch=branchesList;
+        List<Branch> branches=branchesList.getBranches();
+        for(Branch branch:branches) {
+            if (column == 4) {
+                row++;
+                column = 0;
+            }
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(this.getClass().getResource("com/example/Prototype/client/branches.fxml"));
+            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
 
-        GridPane.setMargin(anchorPane, new Insets(0,0,10,0));
+            BranchesController itemController = fxmlLoader.getController();
+            itemController.setData(branch);
+
+            grid.add(anchorPane, column, row);
+            //set grid width
+            grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+            grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+            //set grid height
+            grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+            grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+            GridPane.setMargin(anchorPane, new Insets(0, 0, 10, 0));
+        }
 	}
 
 }

@@ -16,11 +16,8 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "movie_name")
     private String name;
-	@Column(name = "actor_name")
     private String Actor;
-	@Column(name = "director_name")
     private String Director;
 	@Column(name = "image_source")
     private String ImgSrc;
@@ -36,13 +33,13 @@ public class Movie {
     Movie(){
     }
     
-    public Movie(String name,String Actor, String Director, String ImgSrc,String Text,Time screeningTime){
+    public Movie(String name,String Actor, String Director, String ImgSrc,String Text,Time time){
     	this.name=name;
     	this.Actor=Actor;
     	this.Director=Director;
     	this.ImgSrc=ImgSrc;
     	this.Text=Text;
-    	this.screeningTime=screeningTime;
+    	this.screeningTime=time;
     }
     
     public void setName(String x) {

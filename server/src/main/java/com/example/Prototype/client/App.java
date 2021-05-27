@@ -10,10 +10,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import com.example.server.Classes.Branch;
-import com.example.server.Classes.Movie;
-import com.example.server.Classes.MovieList;
-
 /**
  * Hello world!
  *
@@ -37,6 +33,7 @@ public class App
 		configuration.addAnnotatedClass(Movie.class);
 		configuration.addAnnotatedClass(MovieList.class);
 		configuration.addAnnotatedClass(Branch.class);
+		configuration.addAnnotatedClass(Time.class);
 		ServiceRegistry serviceRegistry = (new StandardServiceRegistryBuilder())
 				.applySettings(configuration.getProperties()).build();
 		return configuration.buildSessionFactory(serviceRegistry);
@@ -45,6 +42,8 @@ public class App
 	private static void generateMovies() throws Exception {
 		Random random = new Random();
 
+		//Time time1=new Time(22,12,2012,"20:30","22:00");
+		//Time time2=new Time(25,1,2021,"18:55","21:20");
 		Movie movie1=new Movie("The Godfather","Al pacino","Francis Ford","images/3.jpg",
 				"The Godfather is a classic movie released in 1972");
 			session.save(movie1);
@@ -54,7 +53,7 @@ public class App
 	    	session.save(movie2);
 			session.flush();
 
-	}
+	}*/
 
 	/*private static List<Car> getAllCars() throws Exception {
 		CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -86,15 +85,16 @@ public class App
 			System.out.print(car.getGarages().get(size-1).getAddress()+"\n");
 		}
 
-	}*
+	}*/
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) throws Exception {
 		try {
 			SessionFactory sessionFactory = getSessionFactory();
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			generateMovies();
-			/*Garage garage1=new Garage("Haifa"),garage2=new Garage("Tel-Aviv");
+			generateBranches();
+			Garage garage1=new Garage("Haifa"),garage2=new Garage("Tel-Aviv");
 			session.save(garage1);
 			session.flush();
 			session.save(garage2);
@@ -134,8 +134,8 @@ public class App
 			garage1.printGarage();
 			garage2.printGarage();
 			
-			printAllCars();*
-			session.getTransaction().commit();
+			printAllCars();*/
+		/*	session.getTransaction().commit();
 		} catch (Exception var10) {
 			if (session != null) {
 				session.getTransaction().rollback();
@@ -150,5 +150,14 @@ public class App
 
 		}
 
+	}
+
+	private static void generateBranches() {
+		Branch branch1=new Branch("yes planet","Haifa","image/5.jpg","Lev-Hamifratz");
+		session.save(branch1);
+		session.flush();
+		Branch branch2=new Branch("Hot","Tel-Aviv","image/6.jpg","Dezengov");
+		session.save(branch2);
+		session.flush();
 	}*/
 }

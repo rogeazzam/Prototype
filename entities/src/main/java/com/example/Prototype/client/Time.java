@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "times")
+@Table(name="times")
 public class Time {
 
 	private int day;
@@ -13,22 +13,26 @@ public class Time {
 	
 	private int year;
 	
-	private String begHour;
+	private String begTime;
 	
-	private String begMinute;
+	private String endTime;
+
+	public Time(){
+		super();
+		this.day=1;
+		this.month=1;
+		this.year=2000;
+		this.begTime="00:00";
+		this.endTime="02:00";
+	}
 	
-	private String endHour;
-	
-	private String endMinute;
-	
-	public Time(int day,int month,int year,String begHour,String begMinute,String endHour,String endMinute){
+	public Time(int day,int month,int year,String begTime,String endTime){
+		super();
 		this.day=day;
 		this.month=month;
 		this.year=year;
-		this.begHour=begHour;
-		this.begMinute=begMinute;
-		this.endHour=endHour;
-		this.endMinute=endMinute;
+		this.begTime=begTime;
+		this.endTime=endTime;
 	}
 
 	public int getDay() {
@@ -55,35 +59,19 @@ public class Time {
 		this.year = year;
 	}
 
-	public String getBegHour() {
-		return begHour;
+	public String getBegTime(){
+		return this.begTime;
 	}
 
-	public void setBegHour(String begHour) {
-		this.begHour = begHour;
+	public void setBegTime(String begTime){
+		this.begTime=begTime;
 	}
 
-	public String getBegMinute() {
-		return begMinute;
+	public String getEndTime(){
+		return this.endTime;
 	}
 
-	public void setBegMinute(String begMinute) {
-		this.begMinute = begMinute;
-	}
-
-	public String getEndHour() {
-		return endHour;
-	}
-
-	public void setEndHour(String endHour) {
-		this.endHour = endHour;
-	}
-
-	public String getEndMinute() {
-		return endMinute;
-	}
-
-	public void setEndMinute(String endMinute) {
-		this.endMinute = endMinute;
+	public void setEndTime(String endTime){
+		this.endTime=endTime;
 	}
 }

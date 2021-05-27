@@ -2,8 +2,6 @@ package com.example.Prototype.client;
 
 import java.io.IOException;
 
-import com.example.CinemaPrototype.Classes.Movie;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;

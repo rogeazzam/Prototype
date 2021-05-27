@@ -1,6 +1,5 @@
 package com.example.Prototype.client;
 
-import com.example.CinemaPrototype.Classes.Movie;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

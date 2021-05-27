@@ -1,25 +1,15 @@
 package com.example.Prototype.client;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import org.greenrobot.eventbus.Subscribe;
-
-import com.example.CinemaPrototype.Classes.Branch;
-import com.example.CinemaPrototype.Classes.Movie;
-import com.example.CinemaPrototype.Classes.MovieList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -32,16 +22,16 @@ public class MovieListController{
     @FXML
     private GridPane grid;
     
-	private Branch branch;
+	private MovieList movies;
 	
 	int column=0,row=1;
 
-	public void setData(Branch branch) throws IOException {
-		this.branch=branch;
-		List<Movie> list=branch.getMovie().getMovies();
+	public void setData(MovieList movies) throws IOException {
+		this.movies=movies;
+		List<Movie> list=movies.getMovies();
 		for(Movie movie : list) {
     	FXMLLoader fxmlLoader = new FXMLLoader();
-    	fxmlLoader.setLocation(this.getClass().getResource("movie.fxml"));
+    	fxmlLoader.setLocation(this.getClass().getResource("com/example/Prototype/client/movie.fxml"));
 		AnchorPane anchorPane;
 		anchorPane = (AnchorPane)fxmlLoader.load();
 
@@ -81,7 +71,7 @@ public class MovieListController{
 		List<Movie> list=movies.getMovies();
 		for(Movie movie : list) {
     	FXMLLoader fxmlLoader = new FXMLLoader();
-    	fxmlLoader.setLocation(this.getClass().getResource("movie.fxml"));
+    	fxmlLoader.setLocation(this.getClass().getResource("com/example/Prototype/client/movie.fxml"));
 		AnchorPane anchorPane;
 		anchorPane = (AnchorPane)fxmlLoader.load();
 

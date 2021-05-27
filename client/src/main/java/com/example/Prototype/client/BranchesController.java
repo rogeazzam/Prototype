@@ -2,8 +2,6 @@ package com.example.Prototype.client;
 
 import java.io.IOException;
 
-import com.example.CinemaPrototype.Classes.Branch;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class BranchesController {
 
@@ -52,17 +52,23 @@ public class BranchesController {
         App.myStage.setMaximized(true);
         App.myStage.show();*/
     	//nameLabel.setText(String.valueOf(branch.getMovie().getSize()));
-    	
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("movielist.fxml"));
-		Parent root = loader.load();
-    	
-		MovieListController itemController = loader.getController();
-    	itemController.setData(branch);
+        SimpleClient.getClient().sendToServer("#showMovies");
+    }
+
+    @Subscribe
+    public void showMovies(MovieList movies) throws IOException {
+        EventBus.getDefault().register(this);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("movielist.fxml"));
+        Parent root = loader.load();
+
+        MovieListController itemController = loader.getController();
+        itemController.setData(movies);
 
         //Stage stage = new Stage();
-		App.myStage.setScene(new Scene(root,600,600));
-		App.myStage.setFullScreen(true);
-		App.myStage.show();
+        App.myStage.setScene(new Scene(root,600,600));
+        App.myStage.setFullScreen(true);
+        App.myStage.show();
     }
     
     private static Parent loadFXML(String fxml) throws IOException {

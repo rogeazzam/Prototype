@@ -1,4 +1,5 @@
-com\example\Time.class
-com\example\Movie.class
-com\example\Branch.class
-com\example\MovieList.class
+com\example\Prototype\client\Time.class
+com\example\Prototype\client\BranchesList.class
+com\example\Prototype\client\Branch.class
+com\example\Prototype\client\Movie.class
+com\example\Prototype\client\MovieList.class

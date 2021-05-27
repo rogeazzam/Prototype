@@ -5,14 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.Stack;
-
-import com.example.CinemaPrototype.Classes.Branch;
-import com.example.CinemaPrototype.Classes.Movie;
-import com.example.CinemaPrototype.Classes.MovieList;
-import com.example.CinemaPrototype.Classes.Time;
 
 /**
  * JavaFX App
@@ -22,15 +18,16 @@ public class App extends Application {
 
     private static Scene scene;
     public static Stage myStage;
+    private SimpleClient client;
     //private SimpleClient client;
     public static Stack<Scene> sceneStack=new Stack<Scene>();
 
     @Override
     public void start(Stage stage) throws IOException {
-    	EventBus.getDefault().register(this);
-    	client = SimpleClient.getClient();
-    	client.openConnection();
-        scene = new Scene(loadFXML("primary"));
+    	//EventBus.getDefault().register(this);
+    	//client = SimpleClient.getClient();
+    //	client.openConnection();
+      //  scene = new Scene(loadFXML("primary"));
         stage.setScene(scene);
         App.sceneStack.push(scene);
         App.myStage=stage;
