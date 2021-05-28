@@ -54,9 +54,19 @@ public class App extends Application {
         Platform.runLater(()->{
             MovieList movies= event.getMovies();
             try {
-                scene = new Scene(loadFXML("movielist"),600,600);
+               /* scene = new Scene(loadFXML("movielist"),600,600);
                 App.myStage.setScene(scene);
                 App.myStage.setMaximized(true);
+                App.myStage.show();*/
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("movielist.fxml"));
+                Parent root = loader.load();
+
+                MovieListController itemController = loader.getController();
+                itemController.setData(movies);
+
+                //Stage stage = new Stage();
+                App.myStage.setScene(new Scene(root,600,600));
+                App.myStage.setFullScreen(true);
                 App.myStage.show();
             } catch (IOException e) {
                 e.printStackTrace();

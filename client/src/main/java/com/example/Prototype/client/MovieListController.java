@@ -29,7 +29,7 @@ public class MovieListController{
 
 	public void setData(MovieList movies) throws IOException {
 		this.movies=movies;
-		List<Movie> list=movies.getMovies();
+		/*List<Movie> list=movies.getMovies();
 		for(Movie movie : list) {
     	FXMLLoader fxmlLoader = new FXMLLoader();
     	fxmlLoader.setLocation(this.getClass().getResource("com/example/Prototype/client/movie.fxml"));
@@ -57,22 +57,20 @@ public class MovieListController{
         grid.setMaxHeight(Region.USE_PREF_SIZE);
 
         GridPane.setMargin(anchorPane, new Insets(0,0,10,0));
-		}
+		}*/
 	}
 	
     @FXML
-    void BackButton(ActionEvent event) {
-		App.myStage.setScene(App.sceneStack.pop());
-		App.myStage.setFullScreen(true);
-		App.myStage.show();
+    void BackButton(ActionEvent event) throws IOException {
+		displayMovies();
     }
     
     @Subscribe
-    public void displayMovies(MovieList movies) throws IOException {
+    public void displayMovies() throws IOException {
 		List<Movie> list=movies.getMovies();
 		for(Movie movie : list) {
     	FXMLLoader fxmlLoader = new FXMLLoader();
-    	fxmlLoader.setLocation(this.getClass().getResource("com/example/Prototype/client/movie.fxml"));
+    	fxmlLoader.setLocation(this.getClass().getResource("movie.fxml"));
 		AnchorPane anchorPane;
 		anchorPane = (AnchorPane)fxmlLoader.load();
 
