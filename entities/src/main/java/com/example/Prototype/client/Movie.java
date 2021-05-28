@@ -1,14 +1,7 @@
 package com.example.Prototype.client;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "movie")
@@ -16,16 +9,32 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+    @Column(name = "movie_name")
     private String name;
+    @Column(name = "actor_name")
     private String Actor;
+    @Column(name = "director_name")
     private String Director;
 	@Column(name = "image_source")
     private String ImgSrc;
 	@Column(name = "description")
     private String Text;
-    
-    @Column(name="movie_time")
+
+    @OneToOne(
+            cascade = {CascadeType.ALL}
+    )
+    @JoinColumn(
+            name = "movie_time",
+            referencedColumnName = "id"
+    )
     private Time screeningTime;
+
+    @ManyToMany(
+            mappedBy = "movies",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            targetEntity = MovieList.class
+    )
+    private List<MovieList> lists;
     
     Movie(){
     }

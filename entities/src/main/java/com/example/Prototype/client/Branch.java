@@ -1,17 +1,21 @@
 package com.example.Prototype.client;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.sun.istack.NotNull;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "branches")
 public class Branch {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@NotNull
+	@Column(name="branch_name")
 	private String name;
-	
+
+	@Column(name="branch_imagesrc")
 	private String ImgSrc;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

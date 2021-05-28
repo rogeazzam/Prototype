@@ -7,6 +7,10 @@ import java.util.List;
 @Entity
 @Table(name="branches")
 public class BranchesList {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @OneToMany(fetch = FetchType.LAZY)
     List<Branch> branches;
 

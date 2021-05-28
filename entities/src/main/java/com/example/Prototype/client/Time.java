@@ -1,11 +1,13 @@
 package com.example.Prototype.client;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="times")
 public class Time {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
 	private int day;
 	
@@ -16,6 +18,11 @@ public class Time {
 	private String begTime;
 	
 	private String endTime;
+
+	@OneToOne(
+			mappedBy = "screeningTime"
+	)
+	private Movie movie;
 
 	public Time(){
 		super();

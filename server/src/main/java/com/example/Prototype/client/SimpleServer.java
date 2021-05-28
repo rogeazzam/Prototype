@@ -36,16 +36,36 @@ public class SimpleServer extends AbstractServer {
 	}
 
 	private static List<Branch> getAllBranches() throws Exception {
-		try {
-			SessionFactory sessionFactory = getSessionFactory();
-			session = sessionFactory.openSession();
-			session.beginTransaction();
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
 			query.from(Branch.class);
 			List<Branch> data = session.createQuery(query).getResultList();
 			session.getTransaction().commit();
 			return data;
+	}
+
+	@Override
+	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
+		String msgString = msg.toString();
+		System.out.println(msgString);
+		try {
+			SessionFactory sessionFactory = getSessionFactory();
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			if (msgString.startsWith("#showBranches")) {
+				try {
+					List<Branch> branches=getAllBranches();
+					BranchesList branchesList=new BranchesList();
+					for(Branch branch:branches)
+						branchesList.setBranch(branch);
+					client.sendToClient(branchesList);
+					System.out.format("Sent branches to client %s\n", client.getInetAddress().getHostAddress());
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		} catch (Exception var10) {
 			if (session != null) {
 				session.getTransaction().rollback();
@@ -56,27 +76,6 @@ public class SimpleServer extends AbstractServer {
 		} finally {
 			if (session != null) {
 				session.close();
-			}
-		}
-		return null;
-	}
-
-	@Override
-	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		String msgString = msg.toString();
-		System.out.println(msgString);
-		if (msgString.startsWith("#showBranches")) {
-			try {
-				List<Branch> branches=getAllBranches();
-				BranchesList branchesList=new BranchesList();
-				for(Branch branch:branches)
-					branchesList.setBranch(branch);
-				client.sendToClient(branchesList);
-				System.out.format("Sent branches to client %s\n", client.getInetAddress().getHostAddress());
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
 

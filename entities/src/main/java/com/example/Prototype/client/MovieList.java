@@ -3,13 +3,7 @@ package com.example.Prototype.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "movies")
@@ -17,8 +11,20 @@ public class MovieList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
+
+	@ManyToMany(
+			cascade = {CascadeType.ALL},
+			targetEntity = Movie.class
+	)
+	@JoinTable(
+			name = "movie_movielist",
+			joinColumns = {@JoinColumn(
+					name = "movieslist_id"
+			)},
+			inverseJoinColumns = {@JoinColumn(
+					name = "movie_id"
+			)}
+	)
 	private List<Movie> movies=new ArrayList<Movie>();
 	private int size=0;
 	
