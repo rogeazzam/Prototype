@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane accessibleRole="BUTTON" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="260.0" styleClass="fruit-item" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.MovieController">
+<AnchorPane accessibleRole="BUTTON" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="260.0" styleClass="fruit-item" stylesheets="@style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.Prototype.client.MovieController">
    <children>
       <Label fx:id="MovieName" alignment="CENTER" layoutX="28.0" layoutY="14.0" prefHeight="21.0" prefWidth="204.0" stylesheets="@style.css" text="The Shawshank Redemption" textAlignment="JUSTIFY" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0">
          <font>

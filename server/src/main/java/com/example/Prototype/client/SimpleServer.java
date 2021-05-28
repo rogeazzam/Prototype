@@ -40,8 +40,15 @@ public class SimpleServer extends AbstractServer {
 			CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
 			query.from(Branch.class);
 			List<Branch> data = session.createQuery(query).getResultList();
-			session.getTransaction().commit();
 			return data;
+	}
+
+	private static List<Movie> getAllMovies() throws Exception {
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Movie> query = builder.createQuery(Movie.class);
+		query.from(Movie.class);
+		List<Movie> data = session.createQuery(query).getResultList();
+		return data;
 	}
 
 	@Override
@@ -60,6 +67,22 @@ public class SimpleServer extends AbstractServer {
 						branchesList.setBranch(branch);
 					client.sendToClient(branchesList);
 					System.out.format("Sent branches to client %s\n", client.getInetAddress().getHostAddress());
+					session.getTransaction().commit();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if(msgString.startsWith("#showMovies")){
+				try {
+					List<Movie> movies=getAllMovies();
+					MovieList movieList=new MovieList();
+					for(Movie movie:movies)
+						movieList.setMovies(movie);
+					client.sendToClient(movieList);
+					System.out.format("Sent movies to client %s\n", client.getInetAddress().getHostAddress());
+					session.getTransaction().commit();
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (Exception e) {

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="310.0" styleClass="dark-color" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.BranchesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="310.0" styleClass="dark-color" stylesheets="@style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.Prototype.client.BranchesController">
    <children>
       <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="58.0" layoutY="14.0" prefHeight="25.0" prefWidth="195.0" styleClass="shadow" stylesheets="@style.css" text="Lev Hamifratz Cinema" textAlignment="JUSTIFY">
          <font>

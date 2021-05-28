@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -55,7 +58,19 @@ public class SecondaryController implements Initializable{
 
     @FXML
     void BranchOpen(ActionEvent event) throws IOException {
-        SimpleClient.getClient().sendToServer("#showBranches");
+        SimpleClient.getClient().sendToServer("#showMovies");
+        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Prototype/client/showmovie.fxml"));
+        Parent root = loader.load();
+
+        Time time1=new Time(22,1,52,"52","4");
+        ShowMovieController itemController = loader.getController();
+        itemController.setData(new Movie("hhhh","ssss","kkk","images/2.jpg","sf;lj gijf",time1));
+
+        //Stage stage = new Stage();
+        Scene scene=new Scene(root,600,600);
+        App.myStage.setScene(scene);
+        App.myStage.setFullScreen(true);
+        App.myStage.show();*/
     }
 
     @FXML

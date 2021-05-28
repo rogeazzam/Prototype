@@ -57,8 +57,6 @@ public class BranchesController {
 
     @Subscribe
     public void showMovies(MovieList movies) throws IOException {
-        EventBus.getDefault().register(this);
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("movielist.fxml"));
         Parent root = loader.load();
 

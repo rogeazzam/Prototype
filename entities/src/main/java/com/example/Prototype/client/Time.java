@@ -34,7 +34,6 @@ public class Time {
 	}
 	
 	public Time(int day,int month,int year,String begTime,String endTime){
-		super();
 		this.day=day;
 		this.month=month;
 		this.year=year;

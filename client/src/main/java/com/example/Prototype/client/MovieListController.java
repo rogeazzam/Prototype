@@ -3,6 +3,7 @@ package com.example.Prototype.client;
 import java.io.IOException;
 import java.util.List;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
