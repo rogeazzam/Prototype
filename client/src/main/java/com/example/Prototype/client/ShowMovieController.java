@@ -43,7 +43,7 @@ public class ShowMovieController {
 	private Label screeningTimeLabel;
     
     public void setData(Movie movie) {
-    	setChoices();
+    	//setChoices();
     	this.movie=movie;
 		movieName.setText(movie.getName());
 		Image image=new Image(getClass().getResourceAsStream(movie.getImgSrc()));
@@ -113,6 +113,7 @@ public class ShowMovieController {
     	screeningTimeLabel.setText("Date of screening: "+String.valueOf(DayOp.getValue())
 			+"/"+String.valueOf(MonthOp.getValue())+"/"+String.valueOf(YearOp.getValue())+"   "
 				+"At "+BegHour.getValue()+":"+BegMinute.getValue());
+
 	}
 
 }

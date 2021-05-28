@@ -1,5 +1,6 @@
 package com.example.Prototype.client;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
@@ -37,19 +38,35 @@ public class MovieController {
     private Movie movie;
 
     @FXML
-    void ButtonHit(MouseEvent event) throws IOException {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("showmovie.fxml"));
-            Parent root = loader.load();
-            
-            ShowMovieController itemController = loader.getController();
-            itemController.setData(movie);
+    void showIt(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("showmovie.fxml"));
+        Parent root = loader.load();
 
-            //Stage stage = new Stage();
-            Scene scene=new Scene(root,600,600);
-            App.myStage.setScene(scene);
-            App.myStage.setFullScreen(true);
-            App.myStage.show();
+        ShowMovieController itemController = loader.getController();
+        itemController.setData(movie);
+
+        //Stage stage = new Stage();
+        Scene scene=new Scene(root,600,600);
+        App.myStage.setScene(scene);
+        App.myStage.setFullScreen(true);
+        App.myStage.show();
     }
+/*
+    @FXML
+    void ImgHit(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("showmovie.fxml"));
+        Parent root = loader.load();
+
+        ShowMovieController itemController = loader.getController();
+        itemController.setData(movie);
+
+        //Stage stage = new Stage();
+        Scene scene=new Scene(root,600,600);
+        App.myStage.setScene(scene);
+        App.myStage.setFullScreen(true);
+        App.myStage.show();
+    }*/
+
 	public void setData(Movie movie1) {
 		this.movie=movie1;
 		MovieName.setText(movie.getName());
