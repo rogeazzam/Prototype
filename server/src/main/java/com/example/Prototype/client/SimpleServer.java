@@ -43,7 +43,7 @@ public class SimpleServer extends AbstractServer {
 			return data;
 	}
 
-	private static List<Movie> getAllMovies() throws Exception {
+	private static List<Movie> getAllMovies() {
 		CriteriaBuilder builder = session.getCriteriaBuilder();
 		CriteriaQuery<Movie> query = builder.createQuery(Movie.class);
 		query.from(Movie.class);
@@ -54,12 +54,12 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		String msgString = msg.toString();
-		System.out.println(msgString);
 		try {
 			SessionFactory sessionFactory = getSessionFactory();
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			if (msgString.startsWith("#showBranches")) {
+				System.out.println("ssss");
 				try {
 					List<Branch> branches=getAllBranches();
 					BranchesList branchesList=new BranchesList();
@@ -76,10 +76,15 @@ public class SimpleServer extends AbstractServer {
 			}
 			else if(msgString.startsWith("#showMovies")){
 				try {
-					List<Movie> movies=getAllMovies();
+					List<Movie> movies= SimpleServer.getAllMovies();
+					System.out.println(movies.get(0).getActor());
 					MovieList movieList=new MovieList();
-					for(Movie movie:movies)
+					for(Movie movie:movies) {
 						movieList.setMovies(movie);
+					}
+					//MovieList movieList=new MovieList();
+					//movieList.setMovies(new Movie("sasd","aldk","mjf","images/4.jpg","sfasf dfd",
+					//		new Time(22,12,15,"sd","55")));
 					client.sendToClient(movieList);
 					System.out.format("Sent movies to client %s\n", client.getInetAddress().getHostAddress());
 					session.getTransaction().commit();

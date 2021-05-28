@@ -1,5 +1,6 @@
 package com.example.Prototype.client;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "movies")
-public class MovieList {
+public class MovieList implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
