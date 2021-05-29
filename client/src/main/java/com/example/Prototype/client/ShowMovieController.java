@@ -111,15 +111,17 @@ public class ShowMovieController {
 		}
 
     	else {
-			movie.setScreeningTime(new Time((int) (DayOp.getValue()), (int) MonthOp.getValue(), (int) YearOp.getValue(),
+    		Time time1=new Time((int) (DayOp.getValue()), (int) MonthOp.getValue(), (int) YearOp.getValue(),
 					String.valueOf(BegHour.getValue()) +":"+  String.valueOf(BegMinute.getValue()),
-					String.valueOf(endHour.getValue()) +":"+ String.valueOf(endMinute.getValue())));
+					String.valueOf(endHour.getValue()) +":"+ String.valueOf(endMinute.getValue()));
+			movie.setScreeningTime(time1);
 			screeningTimeLabel.setText("Date of screening: " + String.valueOf(DayOp.getValue())
 					+ "/" + String.valueOf(MonthOp.getValue()) + "/" + String.valueOf(YearOp.getValue()) + "   "
 					+ "At " + BegHour.getValue() + ":" + BegMinute.getValue());
 			int name= movie.getId();
 			String x=String.valueOf(name);
 			x="#updateMovie"+x;
+			SimpleClient.getClient().sendToServer(time1);
 			SimpleClient.getClient().sendToServer(x);
 		}
 	}
@@ -138,5 +140,10 @@ public class ShowMovieController {
 				break;
 		}
 		return true;
+	}
+
+	@FXML
+	public void showMovies(javafx.event.ActionEvent actionEvent) throws IOException {
+		SimpleClient.getClient().sendToServer("#showMovies");
 	}
 }
