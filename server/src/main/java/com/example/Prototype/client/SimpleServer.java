@@ -5,6 +5,7 @@ import com.example.Prototype.client.ocsf.ConnectionToClient;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -21,11 +22,30 @@ import java.util.List;
 public class SimpleServer extends AbstractServer {
 	private static Session session;
 	private int entered;
-	//private static SessionFactory sessionFactory;
+	public static SessionFactory sessionFactory;
 
 	public SimpleServer(int port) {
 		super(port);
 		entered=0;
+		try {
+			sessionFactory = getSessionFactory();
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			InitilaizeData();
+			session.getTransaction().commit();
+		} catch (Exception var10) {
+			if (session != null) {
+				session.getTransaction().rollback();
+			}
+
+			System.err.println("An error occured, changes have been rolled back.");
+			var10.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+
+		}
 	}
 
 	private static SessionFactory getSessionFactory() throws HibernateException {
@@ -40,15 +60,15 @@ public class SimpleServer extends AbstractServer {
 		return configuration.buildSessionFactory(serviceRegistry);
 	}
 
-	private static List<Branch> getAllBranches() throws Exception {
+	/*private static List<Branch> getAllBranches() throws Exception {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
 			query.from(Branch.class);
 			List<Branch> data = session.createQuery(query).getResultList();
 			return data;
-	}
+	}*/
 
-	public static <T> List<T> getAllMovies(Class<T> object) throws Exception {
+	public static <T> List<T> getAll(Class<T> object) throws Exception {
 		CriteriaBuilder builder = session.getCriteriaBuilder();
 		CriteriaQuery<T> criteriaQuery = builder.createQuery(object);
 		Root<T> rootEntry = criteriaQuery.from(object);
@@ -61,18 +81,13 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		String msgString = msg.toString();
-		entered++;
+		Transaction tx = session.beginTransaction();
 		try {
-			SessionFactory sessionFactory = getSessionFactory();
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			if(entered==1)
-				InitlaizeData();
 			if (msgString.startsWith("#showBranches")) {
 				try {
-					List<Branch> branches=getAllBranches();
-					BranchesList branchesList=new BranchesList();
-					for(Branch branch:branches)
+					List<Branch> branches = getAll(Branch.class);
+					BranchesList branchesList = new BranchesList();
+					for (Branch branch : branches)
 						branchesList.setBranch(branch);
 					client.sendToClient(branchesList);
 					System.out.format("Sent branches to client %s\n", client.getInetAddress().getHostAddress());
@@ -81,17 +96,16 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			else if(msgString.startsWith("#showMovies")){
+			} else if (msgString.startsWith("#showMovies")) {
 				try {
-					List<Movie> movies= SimpleServer.getAllMovies(Movie.class);
-					MovieList movieList=new MovieList();
-					for(Movie movie:movies) {
+					List<Movie> movies = SimpleServer.getAll(Movie.class);
+					MovieList movieList = new MovieList();
+					for (Movie movie : movies) {
 						movieList.setMovies(movie);
 					}/*
-					MovieList movieList=new MovieList();
-					movieList.setMovies(new Movie("sasd","aldk","mjf","images/2.jpg","sfasf dfd",
-							new Time(22,12,15,"sd","55")));*/
+				MovieList movieList=new MovieList();
+				movieList.setMovies(new Movie("sasd","aldk","mjf","images/2.jpg","sfasf dfd",
+					new Time(22,12,15,"sd","55")));*/
 					client.sendToClient(movieList);
 					System.out.format("Sent movies to client %s\n", client.getInetAddress().getHostAddress());
 				} catch (IOException e) {
@@ -99,28 +113,22 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}else if(msgString.startsWith("#updateMovie")){
-				String id=msgString.substring(12);
-				Movie movie=(Movie) session.get(Movie.class,Integer.parseInt(id));
+			} else if (msgString.startsWith("#updateMovie")) {
+				String id = msgString.substring(12);
+				Movie movie = (Movie) session.get(Movie.class, Integer.parseInt(id));
 				session.update(movie);
 			}
-			session.getTransaction().commit();
-		} catch (Exception var10) {
-			if (session != null) {
-				session.getTransaction().rollback();
-			}
-
-			System.err.println("An error occured, changes have been rolled back.");
-			var10.printStackTrace();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
 		} finally {
-			if (session != null) {
-				session.close();
-			}
+			session.close();
 		}
 
 	}
 
-	private void InitlaizeData(){
+	private void InitilaizeData(){
 		Time time1=new Time(22,12,2021,"20:30","22:00");
 		Time time2=new Time(1,5,2020,"18:55","20:20");
 
