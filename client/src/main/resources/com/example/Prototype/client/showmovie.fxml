@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" styleClass="search-button" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.ShowMovieController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" styleClass="search-button" stylesheets="@style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.Prototype.client.ShowMovieController">
    <children>
       <Button contentDisplay="RIGHT" layoutX="46.0" layoutY="57.0" mnemonicParsing="false" prefWidth="40.0" styleClass="seat-color" stylesheets="@style.css" translateX="600.0" />
       <Button contentDisplay="RIGHT" layoutX="98.0" layoutY="57.0" mnemonicParsing="false" prefWidth="40.0" styleClass="seat-color" stylesheets="@style.css" translateX="600.0" />

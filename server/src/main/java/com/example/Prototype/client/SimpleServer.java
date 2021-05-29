@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import javax.persistence.Id;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -19,10 +20,12 @@ import java.util.List;
 
 public class SimpleServer extends AbstractServer {
 	private static Session session;
+	private int entered;
+	//private static SessionFactory sessionFactory;
 
 	public SimpleServer(int port) {
 		super(port);
-		
+		entered=0;
 	}
 
 	private static SessionFactory getSessionFactory() throws HibernateException {
@@ -58,11 +61,13 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		String msgString = msg.toString();
+		entered++;
 		try {
 			SessionFactory sessionFactory = getSessionFactory();
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			InitlaizeData();
+			if(entered==1)
+				InitlaizeData();
 			if (msgString.startsWith("#showBranches")) {
 				try {
 					List<Branch> branches=getAllBranches();
@@ -94,6 +99,10 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}else if(msgString.startsWith("#updateMovie")){
+				String id=msgString.substring(12);
+				Movie movie=(Movie) session.get(Movie.class,Integer.parseInt(id));
+				session.update(movie);
 			}
 			session.getTransaction().commit();
 		} catch (Exception var10) {

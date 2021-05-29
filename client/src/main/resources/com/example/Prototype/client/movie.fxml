@@ -19,8 +19,8 @@
             <String fx:value="shadow" />
          </styleClass>
       </Label>
-      <Button fx:id="MyBtn" layoutY="202.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="260.0" styleClass="search-button" stylesheets="@style.css" text="Show movie" />
-      <ImageView fx:id="btnImage" accessibleRole="BUTTON" fitHeight="172.0" fitWidth="260.0" layoutY="32.0" pickOnBounds="true">
+      <Button fx:id="MyBtn" layoutY="202.0" mnemonicParsing="false" onAction="#showIt" prefHeight="28.0" prefWidth="260.0" styleClass="search-button" stylesheets="@style.css" text="Show movie" />
+      <ImageView fx:id="btnImage" accessibleRole="BUTTON" fitHeight="172.0" fitWidth="260.0" layoutY="32.0" onMouseClicked="#ImgHit" pickOnBounds="true">
          <image>
             <Image url="@images/1.jpg" />
          </image>

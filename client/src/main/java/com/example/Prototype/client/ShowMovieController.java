@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.time.Month;
 
 public class ShowMovieController {
@@ -43,7 +44,7 @@ public class ShowMovieController {
 	private Label screeningTimeLabel;
     
     public void setData(Movie movie) {
-    	//setChoices();
+    	setChoices();
     	this.movie=movie;
 		movieName.setText(movie.getName());
 		Image image=new Image(getClass().getResourceAsStream(movie.getImgSrc()));
@@ -57,13 +58,15 @@ public class ShowMovieController {
 		for(Integer i=1;i<=12;i++)
 			list.add(i);
 		MonthOp.getItems().addAll(list);
+		list.clear();
 		for(Integer i=2010;i<=2025;i++)
 			list.add(i);
 		YearOp.getItems().addAll(list);
+		list.clear();
 		for(Integer i=1;i<=28;i++)
 			list.add(i);
 		DayOp.getItems().addAll(list);
-		switch (MonthOp.getValue()){
+		/*switch (MonthOp.getValue()){
 			case 1: case 3: case 5: case 7: case 8: case 10: case 12:
 				DayOp.getItems().addAll(29,30,31);
 				break;
@@ -74,8 +77,8 @@ public class ShowMovieController {
 				if(YearOp.getValue()%4==0 && YearOp.getValue()%100!=0)
 					DayOp.getItems().addAll(29);
 				break;
-		}
-
+		}*/
+/*
 		for(Integer i=0;i<24;i++) {
 			String str;
 			if (i < 10)
@@ -95,7 +98,7 @@ public class ShowMovieController {
 			list.add(str);
 		}
 		BegMinute.getItems().addAll(list);
-		endMinute.getItems().addAll(list);
+		endMinute.getItems().addAll(list);*/
 	}
 
 	public Movie getMovie() {
@@ -107,13 +110,13 @@ public class ShowMovieController {
 	}
 
 	@FXML
-	private void UpdateTime(ActionEvent event) {
-    	movie.setScreeningTime(new Time((int)(DayOp.getValue()), (int)MonthOp.getValue(), (int)YearOp.getValue(),
+	public void UpdateTime(javafx.event.ActionEvent actionEvent) {
+		movie.setScreeningTime(new Time((int)(DayOp.getValue()), (int)MonthOp.getValue(), (int)YearOp.getValue(),
 				(String)BegHour.getValue()+(String) BegMinute.getValue(), (String)endHour.getValue()+(String) endMinute.getValue()));
-    	screeningTimeLabel.setText("Date of screening: "+String.valueOf(DayOp.getValue())
-			+"/"+String.valueOf(MonthOp.getValue())+"/"+String.valueOf(YearOp.getValue())+"   "
+		screeningTimeLabel.setText("Date of screening: "+String.valueOf(DayOp.getValue())
+				+"/"+String.valueOf(MonthOp.getValue())+"/"+String.valueOf(YearOp.getValue())+"   "
 				+"At "+BegHour.getValue()+":"+BegMinute.getValue());
-
+		//String id=String.valueOf(movie.getId());
+		//SimpleClient.getClient().sendToServer("#updateMovie"+id);
 	}
-
 }
