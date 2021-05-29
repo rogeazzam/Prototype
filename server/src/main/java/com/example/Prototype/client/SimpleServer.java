@@ -42,7 +42,7 @@ public class SimpleServer extends AbstractServer {
 			var10.printStackTrace();
 		} finally {
 			if (session != null) {
-				session.close();
+				//session.close();
 			}
 
 		}
@@ -81,13 +81,17 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		String msgString = msg.toString();
-		Transaction tx = session.beginTransaction();
+		System.out.println(msgString);
+		Session newsession = null;
+		entered++;
 		try {
+			newsession=session.getSessionFactory().openSession();
+			newsession.beginTransaction();
 			if (msgString.startsWith("#showBranches")) {
 				try {
-					List<Branch> branches = getAll(Branch.class);
-					BranchesList branchesList = new BranchesList();
-					for (Branch branch : branches)
+					List<Branch> branches=getAll(Branch.class);
+					BranchesList branchesList=new BranchesList();
+					for(Branch branch:branches)
 						branchesList.setBranch(branch);
 					client.sendToClient(branchesList);
 					System.out.format("Sent branches to client %s\n", client.getInetAddress().getHostAddress());
@@ -96,16 +100,14 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (msgString.startsWith("#showMovies")) {
+			}
+			else if(msgString.startsWith("#showMovies")){
 				try {
-					List<Movie> movies = SimpleServer.getAll(Movie.class);
-					MovieList movieList = new MovieList();
-					for (Movie movie : movies) {
+					List<Movie> movies= SimpleServer.getAll(Movie.class);
+					MovieList movieList=new MovieList();
+					for(Movie movie:movies) {
 						movieList.setMovies(movie);
-					}/*
-				MovieList movieList=new MovieList();
-				movieList.setMovies(new Movie("sasd","aldk","mjf","images/2.jpg","sfasf dfd",
-					new Time(22,12,15,"sd","55")));*/
+					}
 					client.sendToClient(movieList);
 					System.out.format("Sent movies to client %s\n", client.getInetAddress().getHostAddress());
 				} catch (IOException e) {
@@ -113,20 +115,44 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (msgString.startsWith("#updateMovie")) {
-				String id = msgString.substring(12);
-				Movie movie = (Movie) session.get(Movie.class, Integer.parseInt(id));
-				session.update(movie);
+			}else if(msgString.startsWith("#updateMovie")){
+				String id=msgString.substring(12);
+				Movie movie=(Movie) newsession.get(Movie.class,Integer.parseInt(id));
+				try {
+					newsession.save(movie.getScreeningTime());
+					newsession.flush();
+					newsession.update(movie);
+					newsession.getTransaction().commit();
+				} catch (Exception var10) {
+					if (session != null) {
+						session.getTransaction().rollback();
+					}
+				}
+				List<Movie> movies= SimpleServer.getAll(Movie.class);
+				MovieList movieList=new MovieList();
+				for(Movie movie2:movies) {
+					movieList.setMovies(movie2);
+				}
+				client.sendToClient(movieList);
+			}else if(msgString.startsWith("#terminate")){
+				session.close();
 			}
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			tx.rollback();
-		} finally {
-			session.close();
-		}
+			newsession.getTransaction().commit();
+		} catch (Exception var10) {
+			if (newsession != null) {
+				newsession.getTransaction().rollback();
+			}
 
+			System.err.println("An error occured, changes have been rolled back.");
+			var10.printStackTrace();
+		} finally {
+			if (newsession != null) {
+				newsession.close();
+			}
+
+		}
 	}
+
 
 	private void InitilaizeData(){
 		Time time1=new Time(22,12,2021,"20:30","22:00");

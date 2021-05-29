@@ -79,7 +79,7 @@ public class MovieListController{
 		
 		grid.add(anchorPane,column++,row);
 		
-		if(column==3) {
+		if(column==4) {
 			column=0;
 			row++;
 		}
@@ -94,7 +94,7 @@ public class MovieListController{
         grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
         grid.setMaxHeight(Region.USE_PREF_SIZE);
 
-        GridPane.setMargin(anchorPane, new Insets(0,0,10,0));
+        GridPane.setMargin(anchorPane, new Insets(0,0,10,30));
 		}
     }
     

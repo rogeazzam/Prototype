@@ -52,6 +52,9 @@ public class ShowMovieController {
 		Image image=new Image(getClass().getResourceAsStream(movie.getImgSrc()));
 		movieImg.setImage(image);
 		movieText.setText(movie.getText());
+		screeningTimeLabel.setText("Date of screening: " + movie.getScreeningTime().getDay()
+				+ "/" + movie.getScreeningTime().getMonth()+ "/" + movie.getScreeningTime().getYear()+ "   "
+				+ "At " + movie.getScreeningTime().getBegTime());
     	
     }
 
@@ -101,7 +104,7 @@ public class ShowMovieController {
 	}
 
 	@FXML
-	public void UpdateTime(javafx.event.ActionEvent actionEvent) {
+	public void UpdateTime(javafx.event.ActionEvent actionEvent) throws IOException {
     	errorMsg.setText("");
     	if(!validDate()) {
 			errorMsg.setText("Entered date is invalid");
@@ -109,12 +112,15 @@ public class ShowMovieController {
 
     	else {
 			movie.setScreeningTime(new Time((int) (DayOp.getValue()), (int) MonthOp.getValue(), (int) YearOp.getValue(),
-					(String) BegHour.getValue() + (String) BegMinute.getValue(), (String) endHour.getValue() + (String) endMinute.getValue()));
+					String.valueOf(BegHour.getValue()) +":"+  String.valueOf(BegMinute.getValue()),
+					String.valueOf(endHour.getValue()) +":"+ String.valueOf(endMinute.getValue())));
 			screeningTimeLabel.setText("Date of screening: " + String.valueOf(DayOp.getValue())
 					+ "/" + String.valueOf(MonthOp.getValue()) + "/" + String.valueOf(YearOp.getValue()) + "   "
 					+ "At " + BegHour.getValue() + ":" + BegMinute.getValue());
-			//String id=String.valueOf(movie.getId());
-			//SimpleClient.getClient().sendToServer("#updateMovie"+id);
+			int name= movie.getId();
+			String x=String.valueOf(name);
+			x="#updateMovie"+x;
+			SimpleClient.getClient().sendToServer(x);
 		}
 	}
 
