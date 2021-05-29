@@ -27,12 +27,13 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 		entered=0;
+		sessionFactory=getSessionFactory();
 		try {
 			sessionFactory = getSessionFactory();
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			InitilaizeData();
-			session.getTransaction().commit();
+			//InitilaizeData();
+			//session.getTransaction().commit();
 		} catch (Exception var10) {
 			if (session != null) {
 				session.getTransaction().rollback();
@@ -68,7 +69,7 @@ public class SimpleServer extends AbstractServer {
 			return data;
 	}*/
 
-	public static <T> List<T> getAll(Class<T> object) throws Exception {
+	public static <T> List<T> getAll(Class<T> object,Session session) throws Exception {
 		CriteriaBuilder builder = session.getCriteriaBuilder();
 		CriteriaQuery<T> criteriaQuery = builder.createQuery(object);
 		Root<T> rootEntry = criteriaQuery.from(object);
@@ -92,10 +93,13 @@ public class SimpleServer extends AbstractServer {
 			if(msg.getClass().equals(Time.class)){
 				Time time=(Time) msg;
 				newsession.save(time);
+			}else if(msg.getClass().equals(Movie.class)){
+				System.out.println(((Movie) msg).getScreeningTime().getBegTime());
+				newsession.update((Movie)msg);
 			}
 			else if (msgString.startsWith("#showBranches")) {
 				try {
-					List<Branch> branches=getAll(Branch.class);
+					List<Branch> branches=getAll(Branch.class,newsession);
 					BranchesList branchesList=new BranchesList();
 					for(Branch branch:branches)
 						branchesList.setBranch(branch);
@@ -109,7 +113,7 @@ public class SimpleServer extends AbstractServer {
 			}
 			else if(msgString.startsWith("#showMovies")){
 				try {
-					List<Movie> movies= SimpleServer.getAll(Movie.class);
+					List<Movie> movies= SimpleServer.getAll(Movie.class,newsession);
 					MovieList movieList=new MovieList();
 					for(Movie movie:movies) {
 						movieList.setMovies(movie);
@@ -124,9 +128,10 @@ public class SimpleServer extends AbstractServer {
 			}else if(msgString.startsWith("#updateMovie")){
 				String id=msgString.substring(12);
 				Movie movie=(Movie) newsession.get(Movie.class,Integer.parseInt(id));
+				System.out.println(movie.getScreeningTime().getBegTime());
 				newsession.update(movie);
 			}else if(msgString.startsWith("#terminate")){
-				session.close();
+				//session.close();
 			}
 			tx.commit();
 		} catch (Exception var10) {
@@ -145,7 +150,7 @@ public class SimpleServer extends AbstractServer {
 	}
 
 
-	private void InitilaizeData(){
+	/*private void InitilaizeData(){
 		Time time1=new Time(22,12,2021,"20:30","22:00");
 		Time time2=new Time(1,5,2020,"18:55","20:20");
 
@@ -199,6 +204,6 @@ public class SimpleServer extends AbstractServer {
 		session.save(branchesList);
 		session.flush();
 
-	}
+	}*/
 
 }

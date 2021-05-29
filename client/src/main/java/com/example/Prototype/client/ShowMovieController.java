@@ -118,11 +118,11 @@ public class ShowMovieController {
 			screeningTimeLabel.setText("Date of screening: " + String.valueOf(DayOp.getValue())
 					+ "/" + String.valueOf(MonthOp.getValue()) + "/" + String.valueOf(YearOp.getValue()) + "   "
 					+ "At " + BegHour.getValue() + ":" + BegMinute.getValue());
-			int name= movie.getId();
+			/*int name= movie.getId();
 			String x=String.valueOf(name);
-			x="#updateMovie"+x;
+			x="#updateMovie"+x;*/
 			SimpleClient.getClient().sendToServer(time1);
-			SimpleClient.getClient().sendToServer(x);
+			SimpleClient.getClient().sendToServer(movie);
 		}
 	}
 
