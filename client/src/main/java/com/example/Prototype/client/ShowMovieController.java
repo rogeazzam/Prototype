@@ -42,6 +42,8 @@ public class ShowMovieController {
 	private ChoiceBox<String> endMinute;
 	@FXML
 	private Label screeningTimeLabel;
+	@FXML
+	private Label errorMsg;
     
     public void setData(Movie movie) {
     	setChoices();
@@ -63,22 +65,10 @@ public class ShowMovieController {
 			list.add(i);
 		YearOp.getItems().addAll(list);
 		list.clear();
-		for(Integer i=1;i<=28;i++)
+		for(Integer i=1;i<=31;i++)
 			list.add(i);
 		DayOp.getItems().addAll(list);
-		/*switch (MonthOp.getValue()){
-			case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-				DayOp.getItems().addAll(29,30,31);
-				break;
-			case 4:case 6: case 9: case 11:
-				DayOp.getItems().addAll(29,30);
-				break;
-			default:
-				if(YearOp.getValue()%4==0 && YearOp.getValue()%100!=0)
-					DayOp.getItems().addAll(29);
-				break;
-		}*/
-/*
+		list.clear();
 		for(Integer i=0;i<24;i++) {
 			String str;
 			if (i < 10)
@@ -89,6 +79,7 @@ public class ShowMovieController {
 		}
 		BegHour.getItems().addAll(list);
 		endHour.getItems().addAll(list);
+		list.clear();
 		for(Integer i=0;i<60;i++) {
 			String str;
 			if (i < 10)
@@ -98,7 +89,7 @@ public class ShowMovieController {
 			list.add(str);
 		}
 		BegMinute.getItems().addAll(list);
-		endMinute.getItems().addAll(list);*/
+		endMinute.getItems().addAll(list);
 	}
 
 	public Movie getMovie() {
@@ -111,12 +102,35 @@ public class ShowMovieController {
 
 	@FXML
 	public void UpdateTime(javafx.event.ActionEvent actionEvent) {
-		movie.setScreeningTime(new Time((int)(DayOp.getValue()), (int)MonthOp.getValue(), (int)YearOp.getValue(),
-				(String)BegHour.getValue()+(String) BegMinute.getValue(), (String)endHour.getValue()+(String) endMinute.getValue()));
-		screeningTimeLabel.setText("Date of screening: "+String.valueOf(DayOp.getValue())
-				+"/"+String.valueOf(MonthOp.getValue())+"/"+String.valueOf(YearOp.getValue())+"   "
-				+"At "+BegHour.getValue()+":"+BegMinute.getValue());
-		//String id=String.valueOf(movie.getId());
-		//SimpleClient.getClient().sendToServer("#updateMovie"+id);
+    	errorMsg.setText("");
+    	if(!validDate()) {
+			errorMsg.setText("Entered date is invalid");
+		}
+
+    	else {
+			movie.setScreeningTime(new Time((int) (DayOp.getValue()), (int) MonthOp.getValue(), (int) YearOp.getValue(),
+					(String) BegHour.getValue() + (String) BegMinute.getValue(), (String) endHour.getValue() + (String) endMinute.getValue()));
+			screeningTimeLabel.setText("Date of screening: " + String.valueOf(DayOp.getValue())
+					+ "/" + String.valueOf(MonthOp.getValue()) + "/" + String.valueOf(YearOp.getValue()) + "   "
+					+ "At " + BegHour.getValue() + ":" + BegMinute.getValue());
+			//String id=String.valueOf(movie.getId());
+			//SimpleClient.getClient().sendToServer("#updateMovie"+id);
+		}
+	}
+
+	private boolean validDate(){
+		switch (MonthOp.getValue()){
+			case 4:case 6: case 9: case 11:
+				if(DayOp.getValue()==31)
+					return false;
+				break;
+			case 2:
+				if(DayOp.getValue()>=30)
+					return false;
+				else if((YearOp.getValue()%4!=0 || YearOp.getValue()%100==0) && DayOp.getValue()>28)
+					return false;
+				break;
+		}
+		return true;
 	}
 }

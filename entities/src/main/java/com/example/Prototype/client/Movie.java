@@ -48,9 +48,9 @@ public class Movie implements Serializable {
     	this.Text=Text;
     	this.screeningTime=time;
     }
-   /* public int getId() {
+    public int getId() {
         return this.id;
-    }*/
+    }
     
     public void setName(String x) {
     	this.name=x;
