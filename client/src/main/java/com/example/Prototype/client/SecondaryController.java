@@ -1,5 +1,6 @@
 package com.example.Prototype.client;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -42,6 +43,9 @@ public class SecondaryController implements Initializable{
 
     @FXML // fx:id="grid"
     private GridPane grid; // Value injected by FXMLLoader
+
+    @FXML
+    private GridPane loginGrid;
     
     @FXML
     private AnchorPane anchor1;
@@ -59,18 +63,6 @@ public class SecondaryController implements Initializable{
     @FXML
     void BranchOpen(ActionEvent event) throws IOException {
         SimpleClient.getClient().sendToServer("#showMovies");
-        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Prototype/client/showmovie.fxml"));
-        Parent root = loader.load();
-
-        Time time1=new Time(22,1,52,"52","4");
-        ShowMovieController itemController = loader.getController();
-        itemController.setData(new Movie("hhhh","ssss","kkk","images/2.jpg","sf;lj gijf",time1));
-
-        //Stage stage = new Stage();
-        Scene scene=new Scene(root,600,600);
-        App.myStage.setScene(scene);
-        App.myStage.setFullScreen(true);
-        App.myStage.show();*/
     }
 
     @FXML
@@ -124,4 +116,26 @@ public class SecondaryController implements Initializable{
         }
 	}
 
+    @FXML
+    void LoginDetected(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(this.getClass().getResource("login.fxml"));
+        AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
+
+        LoginController itemController = fxmlLoader.getController();
+        itemController.setData();
+
+        loginGrid.add(anchorPane, 0, 1);
+        //set grid width
+        loginGrid.setMinWidth(Region.USE_COMPUTED_SIZE);
+        loginGrid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        loginGrid.setMaxWidth(Region.USE_PREF_SIZE);
+
+        //set grid height
+        loginGrid.setMinHeight(Region.USE_COMPUTED_SIZE);
+        loginGrid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        loginGrid.setMaxHeight(Region.USE_PREF_SIZE);
+
+        GridPane.setMargin(anchorPane, new Insets(0, 0, 0, 0));
+    }
 }

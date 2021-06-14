@@ -19,6 +19,8 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new BranchesList((BranchesList) msg));
 		}else if(msg.getClass().equals(MovieList.class)){
 			EventBus.getDefault().post(new MovieListEvent((MovieList) msg));
+		} else if (msg.getClass().equals(Person.class)) {
+			EventBus.getDefault().post((Person) msg);
 		}
 	}
 	

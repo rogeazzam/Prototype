@@ -123,9 +123,9 @@
       <ChoiceBox fx:id="endMinute" layoutX="1163.0" layoutY="581.0" prefHeight="25.0" prefWidth="80.0" />
       <Label layoutX="1159.0" layoutY="557.0" text="Minute(ending)" />
       <Label layoutX="1059.0" layoutY="557.0" text="Hour(ending)" />
-      <Button layoutX="1114.0" layoutY="738.0" mnemonicParsing="false" onAction="#UpdateTime" text="Update screening times" />
+      <Button layoutX="1114.0" layoutY="690.0" mnemonicParsing="false" onAction="#UpdateTime" text="Update screening times" />
       <Label fx:id="screeningTimeLabel" layoutX="62.0" layoutY="631.0" prefHeight="84.0" prefWidth="336.0" text="Date of screening: 1/1/2020  At: 00:00" />
       <Label fx:id="errorMsg" layoutX="717.0" layoutY="742.0" prefHeight="17.0" prefWidth="173.0" textFill="#b21616" />
-      <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#showMovies" text="Button" />
+      <Button layoutY="2.0" mnemonicParsing="false" onAction="#showMovies" text="Back" />
    </children>
 </AnchorPane>

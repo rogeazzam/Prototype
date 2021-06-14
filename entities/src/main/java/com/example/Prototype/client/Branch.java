@@ -27,6 +27,8 @@ public class Branch {
 	
 	@Column(name="branch_address")
 	private String StreetAddress;
+
+	public Branch(){}
 	
 	public Branch(String name,String ImgSrc,String City,String StreetAddress){
 		this.name=name;
@@ -58,12 +60,6 @@ public class Branch {
 
 	public void setMovie(MovieList movies) {
 		this.movies=movies;
-		
-		/*List<Movie> list=movies.getMovies();
-		
-		for(int i=0;i<list.size();i++) {
-			this.movies.setMovies(list.get(i));
-		}*/
 	}
 
 	public String getImgSrc() {

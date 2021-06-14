@@ -20,33 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleServer extends AbstractServer {
-	private static Session session;
-	private int entered;
-	public static SessionFactory sessionFactory;
+	private static SessionFactory sessionFactory;
 
 	public SimpleServer(int port) {
 		super(port);
-		entered=0;
 		sessionFactory=getSessionFactory();
-		try {
-			sessionFactory = getSessionFactory();
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			//InitilaizeData();
-			//session.getTransaction().commit();
-		} catch (Exception var10) {
-			if (session != null) {
-				session.getTransaction().rollback();
-			}
-
-			System.err.println("An error occured, changes have been rolled back.");
-			var10.printStackTrace();
-		} finally {
-			if (session != null) {
-				//session.close();
-			}
-
-		}
 	}
 
 	private static SessionFactory getSessionFactory() throws HibernateException {
@@ -60,14 +38,6 @@ public class SimpleServer extends AbstractServer {
 				.applySettings(configuration.getProperties()).build();
 		return configuration.buildSessionFactory(serviceRegistry);
 	}
-
-	/*private static List<Branch> getAllBranches() throws Exception {
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<Branch> query = builder.createQuery(Branch.class);
-			query.from(Branch.class);
-			List<Branch> data = session.createQuery(query).getResultList();
-			return data;
-	}*/
 
 	public static <T> List<T> getAll(Class<T> object,Session session) throws Exception {
 		CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -85,11 +55,8 @@ public class SimpleServer extends AbstractServer {
 		System.out.println(msgString);
 		Session newsession = sessionFactory.openSession();
 		Transaction tx=null;
-		entered++;
 		try {
 			tx=newsession.beginTransaction();
-			//newsession=session.getSessionFactory().openSession();
-			//newsession.beginTransaction();
 			if(msg.getClass().equals(Time.class)){
 				Time time=(Time) msg;
 				newsession.save(time);
@@ -130,8 +97,6 @@ public class SimpleServer extends AbstractServer {
 				Movie movie=(Movie) newsession.get(Movie.class,Integer.parseInt(id));
 				System.out.println(movie.getScreeningTime().getBegTime());
 				newsession.update(movie);
-			}else if(msgString.startsWith("#terminate")){
-				//session.close();
 			}
 			tx.commit();
 		} catch (Exception var10) {
@@ -148,62 +113,4 @@ public class SimpleServer extends AbstractServer {
 
 		}
 	}
-
-
-	/*private void InitilaizeData(){
-		Time time1=new Time(22,12,2021,"20:30","22:00");
-		Time time2=new Time(1,5,2020,"18:55","20:20");
-
-		session.save(time1);
-		session.flush();
-		session.save(time2);
-		session.flush();
-
-		Movie movie1=new Movie("The Godfather","Al pacino","Francis Ford","images/3.jpg",
-				"The Godfather is a classic movie released in 1972",time1);
-		session.save(movie1);
-		session.flush();
-		Movie movie2=new Movie("Interstellar","Matthew Mchounghy","Christopher Nolan",
-				"images/4.jpg","Interstellar is fantasy movie about space released in 2014",time2);
-		session.save(movie2);
-		session.flush();
-		Movie movie3=new Movie("Joker","Joaquin Phoenix","Todd Phillips",
-				"images/joker.jpg","Joker is a drama/crime movie made in 2019.",time1);
-		session.save(movie3);
-		session.flush();
-		Movie movie4=new Movie("Fifty shades of grey","Dakota Johnson","Sam Taylor",
-				"images/fifty_shades.jpg","fifty shades of grey is a romance/drama movie made in 2015",time1);
-		session.save(movie4);
-		session.flush();
-		Movie movie5=new Movie("The hangover","Bradley Cooper","Todd Phillips",
-				"images/hangover.jpg","The hangover is a comedy movie made in 2009",time2);
-		session.save(movie5);
-		session.flush();
-		MovieList movies1=new MovieList();
-		movies1.setMovies(movie1);
-		movies1.setMovies(movie2);
-		session.save(movies1);
-		session.flush();
-		MovieList movies2=new MovieList();
-		movies2.setMovies(movie3);
-		movies2.setMovies(movie4);
-		movies2.setMovies(movie5);
-		session.save(movies2);
-		session.flush();
-		Branch branch1=new Branch("yes planet","images/firstCinema.jpg","Haifa","Lev Hamifratz");
-		Branch branch2=new Branch("Hot","images/SecondCinema.jpg","Bialek","Keryon");
-		branch1.setMovie(movies1);
-		branch2.setMovie(movies2);
-		session.save(branch1);
-		session.flush();
-		session.save(branch2);
-		session.flush();
-		BranchesList branchesList=new BranchesList();
-		branchesList.setBranch(branch1);
-		branchesList.setBranch(branch2);
-		session.save(branchesList);
-		session.flush();
-
-	}*/
-
 }

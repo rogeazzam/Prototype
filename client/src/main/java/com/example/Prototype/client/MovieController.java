@@ -49,7 +49,6 @@ public class MovieController {
         ShowMovieController itemController = loader.getController();
         itemController.setData(movie);
 
-        //Stage stage = new Stage();
         Scene scene=new Scene(root,600,600);
         App.myStage.setScene(scene);
         App.myStage.setFullScreen(true);

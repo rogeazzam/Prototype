@@ -40,18 +40,10 @@ public class BranchesController {
     	Label text1=new Label();
     	text1.setText("City: "+branch.getCity()+"\n"+"Address: "+branch.getStreetAddress());
     	grid.add(text1,0,0);
-    	//GridPane.setMargin(text, new Insets(0,0,0,0));
     }
 
     @FXML
     void showMovies(ActionEvent event) throws IOException {
-    	/*Scene scene;
-    	//Stage stage=new Stage();
-        scene = new Scene(loadFXML("movielist"),600,600);
-        App.myStage.setScene(scene);
-        App.myStage.setMaximized(true);
-        App.myStage.show();*/
-    	//nameLabel.setText(String.valueOf(branch.getMovie().getSize()));
         SimpleClient.getClient().sendToServer("#showMovies");
     }
 
@@ -63,7 +55,6 @@ public class BranchesController {
         MovieListController itemController = loader.getController();
         itemController.setData(movies);
 
-        //Stage stage = new Stage();
         App.myStage.setScene(new Scene(root,600,600));
         App.myStage.setFullScreen(true);
         App.myStage.show();

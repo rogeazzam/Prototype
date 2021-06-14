@@ -54,17 +54,12 @@ public class App extends Application {
         Platform.runLater(()->{
             MovieList movies= event.getMovies();
             try {
-               /* scene = new Scene(loadFXML("movielist"),600,600);
-                App.myStage.setScene(scene);
-                App.myStage.setMaximized(true);
-                App.myStage.show();*/
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("movielist.fxml"));
                 Parent root = loader.load();
 
                 MovieListController itemController = loader.getController();
                 itemController.setData(movies);
 
-                //Stage stage = new Stage();
                 App.myStage.setScene(new Scene(root,600,600));
                 App.myStage.setFullScreen(true);
                 App.myStage.show();
@@ -72,5 +67,25 @@ public class App extends Application {
                 e.printStackTrace();
             }
         });
+    }
+
+    @Subscribe
+    public void onLogin(Person person){
+        Platform.runLater(()->{
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
+                Parent root = loader.load();
+
+                ProfileController itemController = loader.getController();
+                itemController.setData(person);
+
+                App.myStage.setScene(new Scene(root,600,600));
+                App.myStage.setFullScreen(true);
+                App.myStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        }
     }
 }

@@ -29,73 +29,35 @@ public class MovieListController{
 
 	public void setData(MovieList movies) throws IOException {
 		this.movies=movies;
-		/*List<Movie> list=movies.getMovies();
-		for(Movie movie : list) {
-    	FXMLLoader fxmlLoader = new FXMLLoader();
-    	fxmlLoader.setLocation(this.getClass().getResource("com/example/Prototype/client/movie.fxml"));
-		AnchorPane anchorPane;
-		anchorPane = (AnchorPane)fxmlLoader.load();
-
-		MovieController itemController =fxmlLoader.getController();
-		itemController.setData(movie);
-		
-		grid.add(anchorPane,column++,row);
-		
-		if(column==3) {
-			column=0;
-			row++;
-		}
-		
-        //set grid width
-        grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-        grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-        grid.setMaxWidth(Region.USE_PREF_SIZE);
-
-        //set grid height
-        grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-        grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        grid.setMaxHeight(Region.USE_PREF_SIZE);
-
-        GridPane.setMargin(anchorPane, new Insets(0,0,10,0));
-		}*/
-	}
-	
-    @FXML
-    void BackButton(ActionEvent event) throws IOException {
-		displayMovies();
-    }
-    
-    @Subscribe
-    public void displayMovies() throws IOException {
 		List<Movie> list=movies.getMovies();
 		for(Movie movie : list) {
-    	FXMLLoader fxmlLoader = new FXMLLoader();
-    	fxmlLoader.setLocation(this.getClass().getResource("movie.fxml"));
-		AnchorPane anchorPane;
-		anchorPane = (AnchorPane)fxmlLoader.load();
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(this.getClass().getResource("movie.fxml"));
+			AnchorPane anchorPane;
+			anchorPane = (AnchorPane)fxmlLoader.load();
 
-		MovieController itemController =fxmlLoader.getController();
-		itemController.setData(movie);
-		
-		grid.add(anchorPane,column++,row);
-		
-		if(column==4) {
-			column=0;
-			row++;
+			MovieController itemController =fxmlLoader.getController();
+			itemController.setData(movie);
+
+			grid.add(anchorPane,column++,row);
+
+			if(column==4) {
+				column=0;
+				row++;
+			}
+
+			//set grid width
+			grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+			grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+			grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+			//set grid height
+			grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+			grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+			grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+			GridPane.setMargin(anchorPane, new Insets(0,0,10,30));
 		}
-		
-        //set grid width
-        grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-        grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-        grid.setMaxWidth(Region.USE_PREF_SIZE);
-
-        //set grid height
-        grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-        grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        grid.setMaxHeight(Region.USE_PREF_SIZE);
-
-        GridPane.setMargin(anchorPane, new Insets(0,0,10,30));
-		}
-    }
+	}
     
 }

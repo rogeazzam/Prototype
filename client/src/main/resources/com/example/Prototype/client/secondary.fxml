@@ -20,7 +20,7 @@
 <?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.Prototype.client.SecondaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.SecondaryController">
    <children>
       <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -148,13 +148,9 @@
                         <Polyline fill="CHARTREUSE" points="-50.0, -40.0, 0.0, 60.0, 0.0, 60.0, -50.0, -40.0" strokeType="INSIDE" />
                         <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button layoutY="38.0" mnemonicParsing="false" onAction="#BranchOpen" prefHeight="25.0" prefWidth="90.0" styleClass="search-button" stylesheets="@style.css" text="Branches" />
+                              <Button layoutY="38.0" mnemonicParsing="false" onAction="#BranchOpen" prefHeight="25.0" prefWidth="116.0" styleClass="search-button" stylesheets="@style.css" text="List of movies" />
+                              <Button layoutX="511.0" layoutY="30.0" mnemonicParsing="false" onAction="#LoginDetected" prefHeight="42.0" prefWidth="64.0" styleClass="search-button" stylesheets="@style.css" text="Sign in" />
                            </children></Pane>
-                        <Label prefHeight="62.0" prefWidth="100.0" text="My Account" textFill="#878787">
-                           <font>
-                              <Font name="Cambria" size="18.0" />
-                           </font>
-                        </Label>
                         <ImageView fitHeight="50.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/login.jpg" />
@@ -162,7 +158,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="167.0" prefWidth="433.0">
                      <children>
                         <Pane prefHeight="84.0" prefWidth="96.0" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="380.0" styleClass="free-delivery-card">
@@ -182,16 +178,6 @@
                               </ImageView>
                            </children>
                         </HBox>
-                        <Pane prefHeight="84.0" prefWidth="96.0" HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="336.0" styleClass="shopping-online-card">
-                           <children>
-                              <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                        <Pane prefHeight="84.0" prefWidth="96.0" />
                      </children>
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="10.0" />
@@ -217,5 +203,10 @@
             </VBox>
          </center>
       </BorderPane>
+      <GridPane fx:id="loginGrid" layoutX="921.0" layoutY="72.0" prefHeight="166.0" prefWidth="353.0">
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
    </children>
 </AnchorPane>
