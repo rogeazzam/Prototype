@@ -1,4 +1,6 @@
+com\example\Prototype\client\Person.class
 com\example\Prototype\client\Branch.class
+com\example\Prototype\client\Employee.class
 com\example\Prototype\client\Movie.class
 com\example\Prototype\client\MovieList.class
 com\example\Prototype\client\Time.class

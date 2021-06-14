@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+import java.awt.event.ActionEvent;
+
 public class ProfileController {
 
     Person person;
@@ -18,7 +20,16 @@ public class ProfileController {
     private GridPane processGrid;
 
     public void setData(Person person){
-        gridButtons=person.getButtons();
+
     }
 
+    @FXML
+    void moviesEvent(ActionEvent event) {
+        
+    }
+
+    @FXML
+    void reportsEvent(ActionEvent event) {
+
+    }
 }

@@ -42,6 +42,19 @@ public class MovieController {
         display();
     }
 
+    private void edit() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("showmovie.fxml"));
+        Parent root = loader.load();
+
+        ShowMovieController itemController = loader.getController();
+        itemController.setData(movie);
+
+        Scene scene=new Scene(root,600,600);
+        App.myStage.setScene(scene);
+        App.myStage.setFullScreen(true);
+        App.myStage.show();
+    }
+
     private void display() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("showmovie.fxml"));
         Parent root = loader.load();
@@ -66,5 +79,10 @@ public class MovieController {
 	@FXML
     public void showIt(javafx.event.ActionEvent actionEvent) throws IOException {
         display();
+    }
+
+    @FXML
+    public void editIt(javafx.event.ActionEvent actionEvent) throws IOException {
+
     }
 }

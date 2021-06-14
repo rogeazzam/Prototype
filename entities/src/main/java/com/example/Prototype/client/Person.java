@@ -32,12 +32,17 @@ public class Person implements Serializable {
     @Column(name="user_name")
     private String UserName;
 
+    @Column(name="class_name")
+    protected String type;
+
     public Person(String firstname, String lastname, String Mail, String Password, String UserName){
+        super();
         this.firstname=firstname;
         this.lastname=lastname;
         this.Mail=Mail;
         this.Password=Password;
         this.UserName=UserName;
+        this.type="Person";
     }
 
     public int getId() {
