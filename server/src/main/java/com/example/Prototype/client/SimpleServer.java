@@ -50,6 +50,14 @@ public class SimpleServer extends AbstractServer {
 		return allQuery.getResultList();
 	}
 
+	public Time find(List<Time> times, int id){
+		for(Time time:times){
+			if(time.getId()==id)
+				return time;
+		}
+		return null;
+	}
+
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		String msgString = msg.toString();
@@ -57,13 +65,12 @@ public class SimpleServer extends AbstractServer {
 		Session newsession = sessionFactory.openSession();
 		Transaction tx=null;
 		try {
-			System.out.println("sdf");
 			tx=newsession.beginTransaction();
 			if(msg.getClass().equals(Time.class)){
 				Time time=(Time) msg;
 				newsession.save(time);
 			}else if(msg.getClass().equals(Movie.class)){
-				System.out.println(((Movie) msg).getScreeningTime().getBegTime());
+				//newsession.delete((Movie)msg);
 				newsession.update((Movie)msg);
 			}
 			else if (msgString.startsWith("#showBranches")) {
@@ -102,6 +109,26 @@ public class SimpleServer extends AbstractServer {
 					if(person.getUserName().equals(arrOfStr[1].toString()) && person.getPassword().equals(arrOfStr[2].toString())){
 						client.sendToClient(person);
 					}
+			}else if(msgString.startsWith("#DeleteTime")){
+				int id=Integer.parseInt(msgString.substring(11));
+				Movie movie=(Movie)newsession.load(Movie.class,id);
+				int timeId=movie.getScreeningTime().getId();
+				System.out.println(timeId);
+				Time time=(Time)newsession.load(Time.class,timeId);
+				newsession.remove(timeId);
+				newsession.flush();
+
+			}else if(msgString.startsWith("#DeleteMovie")){
+				int id=Integer.parseInt(msgString.substring(12));
+				Movie movieToDelete=(Movie)newsession.load(Movie.class,id);
+				//newsession.delete(movieToDelete);
+				newsession.flush();
+				List<Movie> movies=getAll(Movie.class,newsession);
+				MovieList movieList=new MovieList();
+				for(Movie movie:movies) {
+					movieList.setMovies(movie);
+				}
+				client.sendToClient(movieList);
 			}
 			tx.commit();
 		} catch (Exception var10) {

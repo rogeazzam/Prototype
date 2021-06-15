@@ -43,7 +43,7 @@ public class MovieController {
 
     public MovieController(){
         this.type= "costumer";
-        this.fxmlFile="showmovie";
+        this.fxmlFile="showmoviecostumer";
     }
 
     public void setFxmlFile(String fxmlFile){

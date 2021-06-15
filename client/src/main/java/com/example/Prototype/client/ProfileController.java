@@ -53,7 +53,7 @@ public class ProfileController {
 
                 MovieController itemController = fxmlLoader.getController();
                 itemController.setData(movie);
-                itemController.setFxmlFile("showmoviecostumer");
+                itemController.setFxmlFile("showmovie");
 
                 processGrid.add(anchorPane, column, row);
                 //set grid width

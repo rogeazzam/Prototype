@@ -127,5 +127,6 @@
       <Label fx:id="screeningTimeLabel" layoutX="62.0" layoutY="631.0" prefHeight="84.0" prefWidth="336.0" text="Date of screening: 1/1/2020  At: 00:00" />
       <Label fx:id="errorMsg" layoutX="717.0" layoutY="742.0" prefHeight="17.0" prefWidth="173.0" textFill="#b21616" />
       <Button layoutY="2.0" mnemonicParsing="false" onAction="#showMovies" text="Back" />
+      <Button layoutX="1115.0" layoutY="15.0" mnemonicParsing="false" onAction="#DeleteOP" prefHeight="25.0" prefWidth="127.0" styleClass="fruit-item" stylesheets="@style.css" text="Delete Movie" />
    </children>
 </AnchorPane>

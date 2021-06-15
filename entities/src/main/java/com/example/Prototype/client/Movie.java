@@ -1,5 +1,7 @@
 package com.example.Prototype.client;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -8,7 +10,8 @@ import java.util.List;
 @Table(name = "movie")
 public class Movie implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID",unique = true,nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
     @Column(name = "movie_name")
     private String name;
@@ -24,6 +27,7 @@ public class Movie implements Serializable {
     @OneToOne(
             cascade = {CascadeType.ALL}
     )
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     @JoinColumn(
             name = "movie_time",
             referencedColumnName = "id"

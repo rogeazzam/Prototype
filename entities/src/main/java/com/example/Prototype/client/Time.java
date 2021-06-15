@@ -1,5 +1,7 @@
 package com.example.Prototype.client;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -23,6 +25,7 @@ public class Time implements Serializable {
 	@OneToOne(
 			mappedBy = "screeningTime"
 	)
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private Movie movie;
 
 	public Time(){
@@ -40,6 +43,10 @@ public class Time implements Serializable {
 		this.year=year;
 		this.begTime=begTime;
 		this.endTime=endTime;
+	}
+
+	public int getId(){
+		return id;
 	}
 
 	public int getDay() {
@@ -80,5 +87,9 @@ public class Time implements Serializable {
 
 	public void setEndTime(String endTime){
 		this.endTime=endTime;
+	}
+
+	public Time(String str){
+
 	}
 }

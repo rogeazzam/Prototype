@@ -54,3 +54,9 @@
     -fx-background-color: #800020;
         -fx-background-radius: 30;
 }
+.background-image{
+-fx-background-image: url('images/background.jpg')
+}
+.background-image_movie{
+-fx-background-image: url('images/background_movie.jpeg')
+}

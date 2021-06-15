@@ -38,6 +38,7 @@ public class MovieListController{
 
 			MovieController itemController =fxmlLoader.getController();
 			itemController.setData(movie);
+			itemController.setFxmlFile("showmoviecostumer");
 
 			grid.add(anchorPane,column++,row);
 

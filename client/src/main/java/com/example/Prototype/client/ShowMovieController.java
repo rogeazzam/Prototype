@@ -3,13 +3,16 @@ package com.example.Prototype.client;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.hibernate.SessionFactory;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.time.Month;
 
@@ -118,6 +121,9 @@ public class ShowMovieController {
 			screeningTimeLabel.setText("Date of screening: " + String.valueOf(DayOp.getValue())
 					+ "/" + String.valueOf(MonthOp.getValue()) + "/" + String.valueOf(YearOp.getValue()) + "   "
 					+ "At " + BegHour.getValue() + ":" + BegMinute.getValue());
+			String id=String.valueOf(movie.getId());
+			System.out.println(id);
+			//SimpleClient.getClient().sendToServer("#DeleteTime"+ id);
 			SimpleClient.getClient().sendToServer(time1);
 			SimpleClient.getClient().sendToServer(movie);
 		}
@@ -141,6 +147,17 @@ public class ShowMovieController {
 
 	@FXML
 	public void showMovies(javafx.event.ActionEvent actionEvent) throws IOException {
-		SimpleClient.getClient().sendToServer("#showMovies");
+		//SimpleClient.getClient().sendToServer("#showMovies");
+		App.myStage.setScene(App.sceneStack.peek());
+		App.myStage.setFullScreen(true);
+		App.myStage.show();
+	}
+
+	@FXML
+	public void DeleteOP(ActionEvent actionEvent) throws IOException {
+    	//App app=new App();
+    	//EventBus.getDefault().register(app);
+		String id=String.valueOf(movie.getId());
+		SimpleClient.getClient().sendToServer("#DeleteMovie"+id);
 	}
 }

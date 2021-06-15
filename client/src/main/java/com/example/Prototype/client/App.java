@@ -83,8 +83,10 @@ public class App extends Application {
                 ProfileController itemController = loader.getController();
                 itemController.setData(person);
 
-                App.myStage.setScene(new Scene(root,600,600));
+                Scene newscene=new Scene(root,600,600);
+                App.myStage.setScene(newscene);
                 App.myStage.setFullScreen(true);
+                sceneStack.push(newscene);
                 App.myStage.show();
             } catch (IOException e) {
                 e.printStackTrace();
