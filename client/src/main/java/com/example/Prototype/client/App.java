@@ -36,6 +36,10 @@ public class App extends Application {
         myStage.show();
     }
 
+    public void register(){
+        EventBus.getDefault().register(this);
+    }
+
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
@@ -86,5 +90,6 @@ public class App extends Application {
                 e.printStackTrace();
             }
         });
+        EventBus.getDefault().unregister(this);
     }
 }

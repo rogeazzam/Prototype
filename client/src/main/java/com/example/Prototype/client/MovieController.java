@@ -37,30 +37,35 @@ public class MovieController {
     
     private Movie movie;
 
+    private String type;
+
+    private String fxmlFile;
+
+    public MovieController(){
+        this.type= "costumer";
+        this.fxmlFile="showmovie";
+    }
+
+    public void setFxmlFile(String fxmlFile){
+        this.fxmlFile=fxmlFile;
+    }
+
     @FXML
     void ImgHit(MouseEvent event) throws IOException {
         display();
     }
 
-    private void edit() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("showmovie.fxml"));
-        Parent root = loader.load();
-
-        ShowMovieController itemController = loader.getController();
-        itemController.setData(movie);
-
-        Scene scene=new Scene(root,600,600);
-        App.myStage.setScene(scene);
-        App.myStage.setFullScreen(true);
-        App.myStage.show();
-    }
-
     private void display() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("showmovie.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile+".fxml"));
         Parent root = loader.load();
 
-        ShowMovieController itemController = loader.getController();
-        itemController.setData(movie);
+        if(fxmlFile=="showmovie") {
+            ShowMovieController itemController = loader.getController();
+            itemController.setData(movie);
+        }else if(fxmlFile=="showmoviecostumer"){
+            ShowMovieCostumerController itemController = loader.getController();
+            itemController.setData(movie);
+        }
 
         Scene scene=new Scene(root,600,600);
         App.myStage.setScene(scene);
@@ -73,7 +78,6 @@ public class MovieController {
 		MovieName.setText(movie.getName());
 		Image image=new Image(getClass().getResourceAsStream(movie.getImgSrc()));
 		btnImage.setImage(image);
-		
 	}
 
 	@FXML

@@ -34,6 +34,7 @@ public class SimpleServer extends AbstractServer {
 		configuration.addAnnotatedClass(Branch.class);
 		configuration.addAnnotatedClass(BranchesList.class);
 		configuration.addAnnotatedClass(Time.class);
+		configuration.addAnnotatedClass(Person.class);
 		ServiceRegistry serviceRegistry = (new StandardServiceRegistryBuilder())
 				.applySettings(configuration.getProperties()).build();
 		return configuration.buildSessionFactory(serviceRegistry);
@@ -56,6 +57,7 @@ public class SimpleServer extends AbstractServer {
 		Session newsession = sessionFactory.openSession();
 		Transaction tx=null;
 		try {
+			System.out.println("sdf");
 			tx=newsession.beginTransaction();
 			if(msg.getClass().equals(Time.class)){
 				Time time=(Time) msg;
@@ -92,11 +94,14 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}else if(msgString.startsWith("#updateMovie")){
-				String id=msgString.substring(12);
-				Movie movie=(Movie) newsession.get(Movie.class,Integer.parseInt(id));
-				System.out.println(movie.getScreeningTime().getBegTime());
-				newsession.update(movie);
+			}else if (msgString.startsWith("#LOGIN ")) {
+				String[] arrOfStr = msgString.split(" ");
+
+				List<Person> people=getAll(Person.class,newsession);
+				for(Person person:people)
+					if(person.getUserName().equals(arrOfStr[1].toString()) && person.getPassword().equals(arrOfStr[2].toString())){
+						client.sendToClient(person);
+					}
 			}
 			tx.commit();
 		} catch (Exception var10) {

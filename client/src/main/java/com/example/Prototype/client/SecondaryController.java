@@ -95,7 +95,7 @@ public class SecondaryController implements Initializable{
                 column = 0;
             }
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(this.getClass().getResource("com/example/Prototype/client/branches.fxml"));
+            fxmlLoader.setLocation(this.getClass().getResource("branches.fxml"));
             AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
 
             BranchesController itemController = fxmlLoader.getController();

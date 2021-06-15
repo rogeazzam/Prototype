@@ -35,6 +35,8 @@ public class Person implements Serializable {
     @Column(name="class_name")
     protected String type;
 
+    public Person(){}
+
     public Person(String firstname, String lastname, String Mail, String Password, String UserName){
         super();
         this.firstname=firstname;
