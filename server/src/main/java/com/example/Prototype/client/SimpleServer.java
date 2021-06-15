@@ -121,7 +121,7 @@ public class SimpleServer extends AbstractServer {
 			}else if(msgString.startsWith("#DeleteMovie")){
 				int id=Integer.parseInt(msgString.substring(12));
 				Movie movieToDelete=(Movie)newsession.load(Movie.class,id);
-				//newsession.delete(movieToDelete);
+				newsession.delete(movieToDelete);
 				newsession.flush();
 				List<Movie> movies=getAll(Movie.class,newsession);
 				MovieList movieList=new MovieList();

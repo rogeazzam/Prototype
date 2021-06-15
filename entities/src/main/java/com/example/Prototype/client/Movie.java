@@ -27,7 +27,6 @@ public class Movie implements Serializable {
     @OneToOne(
             cascade = {CascadeType.ALL}
     )
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     @JoinColumn(
             name = "movie_time",
             referencedColumnName = "id"

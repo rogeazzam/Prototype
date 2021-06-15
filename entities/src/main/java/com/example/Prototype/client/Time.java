@@ -25,7 +25,6 @@ public class Time implements Serializable {
 	@OneToOne(
 			mappedBy = "screeningTime"
 	)
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private Movie movie;
 
 	public Time(){
