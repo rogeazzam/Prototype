@@ -71,6 +71,10 @@ public class Person implements Serializable {
         return UserName;
     }
 
+    public String getType(){
+        return this.type;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -95,4 +99,7 @@ public class Person implements Serializable {
         UserName = userName;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 }

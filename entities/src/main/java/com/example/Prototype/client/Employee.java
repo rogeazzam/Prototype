@@ -24,11 +24,21 @@ public class Employee extends Person{
         return ComplaintSolve;
     }
 
+    @Override
+    public String getType(){
+        return this.type;
+    }
+
     /*public void setReports(List<Report> reports) {
         this.reports = reports;
     }*/
 
     public void setComplaintSolve(String complaintSolve) {
         ComplaintSolve = complaintSolve;
+    }
+
+    @Override
+    public void setType(String type) {
+        super.setType(type);
     }
 }

@@ -24,8 +24,8 @@
         </content>
       </ScrollPane>
       <Button layoutX="1217.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" styleClass="search-button" stylesheets="@style.css" text="Log out" />
-      <Button fx:id="reportBtn" layoutX="475.0" layoutY="91.0" mnemonicParsing="false" onAction="#reportsEvent" text="show reports" />
-      <Button layoutX="573.0" layoutY="91.0" mnemonicParsing="false" onAction="#moviesEvent" prefHeight="25.0" prefWidth="84.0" text="show movies" />
-      <Button fx:id="btn" layoutX="671.0" layoutY="91.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="reportBtn" layoutX="466.0" layoutY="91.0" mnemonicParsing="false" onAction="#reportsEvent" prefHeight="25.0" prefWidth="94.0" text="show reports" />
+      <Button layoutX="573.0" layoutY="91.0" mnemonicParsing="false" onAction="#moviesEvent" prefHeight="25.0" prefWidth="94.0" text="show movies" />
+      <Button fx:id="addBtn" layoutX="679.0" layoutY="91.0" mnemonicParsing="false" onAction="#addMovieOp" prefHeight="25.0" prefWidth="94.0" text="Add Movie" />
    </children>
 </AnchorPane>

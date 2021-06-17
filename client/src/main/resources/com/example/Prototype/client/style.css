@@ -58,5 +58,13 @@
 -fx-background-image: url('images/background.jpg')
 }
 .background-image_movie{
--fx-background-image: url('images/background_movie.jpeg')
+-fx-background-image: url('images/movieBack.jpeg')
+}
+
+.seat-color{
+    -fx-background-color: #800020;
+}
+
+.seat2-color{
+    -fx-background-color: #8E8E8E;
 }

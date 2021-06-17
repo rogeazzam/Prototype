@@ -9,17 +9,28 @@
 
 <AnchorPane prefHeight="810.0" prefWidth="1315.0" styleClass="background-image_movie" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.ShowMovieCostumerController">
    <children>
-      <Label fx:id="movieName" alignment="CENTER" contentDisplay="CENTER" layoutX="441.0" layoutY="55.0" prefHeight="21.0" prefWidth="434.0" text="aa" textAlignment="CENTER">
+      <Label fx:id="movieName" alignment="CENTER" contentDisplay="CENTER" layoutX="441.0" layoutY="37.0" prefHeight="21.0" prefWidth="434.0" text="aa" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Arial Bold Italic" size="18.0" />
          </font></Label>
-      <ImageView fx:id="movieImg" fitHeight="333.0" fitWidth="336.0" layoutX="127.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="movieText" layoutX="127.0" layoutY="586.0" prefHeight="218.0" prefWidth="530.0" />
-      <GridPane fx:id="grid" layoutX="725.0" layoutY="269.0" prefHeight="538.0" prefWidth="560.0">
+      <ImageView fx:id="movieImg" fitHeight="333.0" fitWidth="336.0" layoutX="56.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="movieText" layoutX="127.0" layoutY="586.0" prefHeight="218.0" prefWidth="530.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <GridPane fx:id="grid" layoutX="799.0" layoutY="282.0" prefHeight="0.0" prefWidth="0.0">
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <Label fx:id="screeningTimeLabel" layoutX="725.0" layoutY="68.0" prefHeight="17.0" prefWidth="458.0" />
+      <Label fx:id="screeningTimeLabel" layoutX="14.0" layoutY="405.0" prefHeight="17.0" prefWidth="458.0" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="934.0" layoutY="226.0" text="Choose Seats" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

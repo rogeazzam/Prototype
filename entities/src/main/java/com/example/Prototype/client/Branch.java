@@ -3,6 +3,7 @@ package com.example.Prototype.client;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "branches")
@@ -27,6 +28,12 @@ public class Branch {
 	
 	@Column(name="branch_address")
 	private String StreetAddress;
+
+	/*@OneToMany(
+			fetch = FetchType.LAZY,
+			mappedBy = "branch"
+	)
+	private List<Hall> halls;*/
 
 	public Branch(){}
 	
@@ -77,4 +84,12 @@ public class Branch {
 	public void setName(String name) {
 		this.name = name;
 	}
+/*
+	public List<Hall> getHalls() {
+		return halls;
+	}
+
+	public void setHalls(List<Hall> halls) {
+		this.halls = halls;
+	}*/
 }

@@ -1,6 +1,8 @@
 package com.example.Prototype.client;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,8 +12,7 @@ import java.util.List;
 @Table(name = "movie")
 public class Movie implements Serializable {
     @Id
-    @Column(name = "ID",unique = true,nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
     @Column(name = "movie_name")
     private String name;
@@ -25,7 +26,8 @@ public class Movie implements Serializable {
     private String Text;
 
     @OneToOne(
-            cascade = {CascadeType.ALL}
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true
     )
     @JoinColumn(
             name = "movie_time",
@@ -33,11 +35,22 @@ public class Movie implements Serializable {
     )
     private Time screeningTime;
 
-    @ManyToMany(
-            mappedBy = "movies",
+   /* @ManyToMany(
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            targetEntity = MovieList.class
+            targetEntity = Person.class
     )
+    @JoinTable(
+            name = "movie_halls",
+            joinColumns = {@JoinColumn(
+                    name = "movie_id"
+            )},
+            inverseJoinColumns = {@JoinColumn(
+                    name = "hall_id"
+            )}
+    )
+    private List<Hall> halls;*/
+
+    @ManyToMany(mappedBy = "movies")
     private List<MovieList> lists;
     
     Movie(){
@@ -102,4 +115,12 @@ public class Movie implements Serializable {
 	public void setScreeningTime(Time screeningTime) {
 		this.screeningTime = screeningTime;
 	}
+
+    /*public List<Hall> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(List<Hall> halls) {
+        this.halls = halls;
+    }*/
 }

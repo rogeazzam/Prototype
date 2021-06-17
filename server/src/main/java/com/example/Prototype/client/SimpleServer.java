@@ -35,6 +35,7 @@ public class SimpleServer extends AbstractServer {
 		configuration.addAnnotatedClass(BranchesList.class);
 		configuration.addAnnotatedClass(Time.class);
 		configuration.addAnnotatedClass(Person.class);
+		configuration.addAnnotatedClass(HomeWatch.class);
 		ServiceRegistry serviceRegistry = (new StandardServiceRegistryBuilder())
 				.applySettings(configuration.getProperties()).build();
 		return configuration.buildSessionFactory(serviceRegistry);
@@ -115,12 +116,13 @@ public class SimpleServer extends AbstractServer {
 				int timeId=movie.getScreeningTime().getId();
 				System.out.println(timeId);
 				Time time=(Time)newsession.load(Time.class,timeId);
-				newsession.remove(timeId);
+				newsession.delete(timeId);
 				newsession.flush();
 
 			}else if(msgString.startsWith("#DeleteMovie")){
 				int id=Integer.parseInt(msgString.substring(12));
 				Movie movieToDelete=(Movie)newsession.load(Movie.class,id);
+				newsession.delete(movieToDelete.getScreeningTime());
 				newsession.delete(movieToDelete);
 				newsession.flush();
 				List<Movie> movies=getAll(Movie.class,newsession);
@@ -129,6 +131,13 @@ public class SimpleServer extends AbstractServer {
 					movieList.setMovies(movie);
 				}
 				client.sendToClient(movieList);
+			}else if(msgString.startsWith("#HomeWatchList")){
+				List<HomeWatch> homeWatch=getAll(HomeWatch.class, newsession);
+				 //movies=new MovieList();
+				MovieList movies=homeWatch.get(0).getMovies();
+				client.sendToClient(movies);
+			}else if(msgString.startsWith("#AddMovie")){
+				addMovie(msgString.substring(9),newsession);
 			}
 			tx.commit();
 		} catch (Exception var10) {
@@ -144,5 +153,19 @@ public class SimpleServer extends AbstractServer {
 			}
 
 		}
+	}
+
+	public void addMovie(String str,Session newsession){
+		String[] parts=str.split("%%");
+		String[] date=parts[1].split("-");
+		int day=Integer.parseInt(date[2]);
+		int month=Integer.parseInt(date[1]);
+		int year=Integer.parseInt(date[0]);
+		Time time=new Time(day,month,year,parts[2],parts[3]);
+		newsession.save(time);
+		newsession.flush();
+		Movie newMovie=new Movie(parts[0], parts[6], parts[7], parts[8], parts[9], time);
+		newsession.save(newMovie);
+		newsession.flush();
 	}
 }

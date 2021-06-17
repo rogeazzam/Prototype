@@ -1,5 +1,8 @@
 package com.example.Prototype.client;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,24 +16,22 @@ public class MovieList implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToMany(
-			cascade = {CascadeType.ALL},
-			targetEntity = Movie.class
-	)
+	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(
-			name = "movie_movielist",
-			joinColumns = {@JoinColumn(
-					name = "movieslist_id"
-			)},
-			inverseJoinColumns = {@JoinColumn(
-					name = "movie_id"
-			)}
+			name = "movielists",
+			joinColumns = { @JoinColumn(name = "movielist_id") },
+			inverseJoinColumns = { @JoinColumn(name = "movie_id") }
 	)
 	private List<Movie> movies=new ArrayList<Movie>();
 	private int size=0;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movies")
 	private List<Branch> branches;
+
+	@OneToOne(
+			mappedBy = "movies"
+	)
+	private HomeWatch homeWatch;
 	
 	public MovieList(){
 		this.movies=new ArrayList<Movie>();

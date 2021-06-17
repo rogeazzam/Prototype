@@ -1,19 +1,22 @@
 package com.example.Prototype.client;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,17 +30,24 @@ public class ProfileController {
     private GridPane processGrid;
 
     @FXML
-    private Button btn;
+    private Button addBtn;
+
+    private Person user;
+
+    private String user_type;
 
     int column=0,row=2;
 
     public void setData(Person person){
-
+        this.user=person;
+        this.user_type=user.getType();
+        if(user_type.equals("Emplyee"))
+            addBtn.setVisible(false);
     }
 
     @Subscribe
     public void display(MovieListEvent movies) throws IOException {
-        btn.setVisible(false);
+        //addBtn.setVisible(false);
         Platform.runLater(()-> {
             try {
             List<Movie> movies1 = movies.getMovies().getMovies();
@@ -84,5 +94,19 @@ public class ProfileController {
         EventBus.getDefault().register(this);
 
         SimpleClient.getClient().sendToServer("#showMovies");
+    }
+
+    @FXML
+    void addMovieOp(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addmovie.fxml"));
+        Parent root = loader.load();
+
+        AddMovieController itemController = loader.getController();
+        itemController.setData();
+
+        Scene newscene=new Scene(root,600,600);
+        Stage stage=new Stage();
+        stage.setScene(newscene);
+        stage.show();
     }
 }

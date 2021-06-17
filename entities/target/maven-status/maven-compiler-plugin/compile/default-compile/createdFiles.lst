@@ -1,9 +1,13 @@
-com\example\Prototype\client\Person.class
 com\example\Prototype\client\Branch.class
 com\example\Prototype\client\Employee.class
+com\example\Prototype\client\HomeWatch.class
 com\example\Prototype\client\Movie.class
 com\example\Prototype\client\MovieList.class
-com\example\Prototype\client\Time.class
-com\example\Prototype\client\BranchesList.class
+com\example\Prototype\client\NetworkManager.class
 com\example\Prototype\client\Main.class
 com\example\Prototype\client\App.class
+com\example\Prototype\client\Person.class
+com\example\Prototype\client\BranchManager.class
+com\example\Prototype\client\Time.class
+com\example\Prototype\client\BranchesList.class
+com\example\Prototype\client\ContentManager.class

@@ -32,7 +32,7 @@ public class App extends Application {
         stage.setScene(scene);
         App.sceneStack.push(scene);
         App.myStage=stage;
-        App.myStage.setFullScreen(true);
+        App.myStage.setMaximized(true);
         myStage.show();
     }
 
@@ -64,8 +64,8 @@ public class App extends Application {
                 MovieListController itemController = loader.getController();
                 itemController.setData(movies);
 
-                App.myStage.setScene(new Scene(root,600,600));
-                App.myStage.setFullScreen(true);
+                App.myStage.setScene(new Scene(root));
+                App.myStage.setMaximized(true);
                 App.myStage.show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -83,9 +83,9 @@ public class App extends Application {
                 ProfileController itemController = loader.getController();
                 itemController.setData(person);
 
-                Scene newscene=new Scene(root,600,600);
+                Scene newscene=new Scene(root);
                 App.myStage.setScene(newscene);
-                App.myStage.setFullScreen(true);
+                App.myStage.setMaximized(true);
                 sceneStack.push(newscene);
                 App.myStage.show();
             } catch (IOException e) {
