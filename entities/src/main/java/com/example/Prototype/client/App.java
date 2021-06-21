@@ -27,7 +27,8 @@ public class App {
         configuration.addAnnotatedClass(Person.class);
         configuration.addAnnotatedClass(Employee.class);
         configuration.addAnnotatedClass(HomeWatch.class);
-        //configuration.addAnnotatedClass(Map.class);
+        configuration.addAnnotatedClass(Map.class);
+        configuration.addAnnotatedClass(Hall.class);
         ServiceRegistry serviceRegistry = (new StandardServiceRegistryBuilder())
                 .applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
@@ -47,93 +48,132 @@ public class App {
         session.flush();
         session.save(p2);
         session.flush();
+         
 
-        session.save(time1);
-        session.flush();
-        session.save(time2);
-        session.flush();
-        session.save(time3);
-        session.flush();
-        session.save(time4);
-        session.flush();
-        session.save(time5);
-        session.flush();
+        Map map1=new Map();
+        Hall hall1=new Hall();
+        map1.setHall(hall1);
+        hall1.setMap(map1);
 
-        Movie movie1=new Movie("The Godfather","Al pacino","Francis Ford","images/3.jpg",
-                "The Godfather is a classic movie released in 1972",time1);
-        Movie movie2=new Movie("Interstellar","Matthew Mchounghy","Christopher Nolan",
-                "images/4.jpg","Interstellar is fantasy movie about space released in 2014",time2);
-        Movie movie3=new Movie("Joker","Joaquin Phoenix","Todd Phillips",
-                "images/joker.jpg","Joker is a drama/crime movie made in 2019.",time3);
-        Movie movie4=new Movie("Fifty shades of grey","Dakota Johnson","Sam Taylor",
-                "images/fifty_shades.jpg","fifty shades of grey is a romance/drama movie made in 2015",time4);
-        Movie movie5=new Movie("The hangover","Bradley Cooper","Todd Phillips",
-                "images/hangover.jpg","The hangover is a comedy movie made in 2009",time5);
+        Map map2=new Map();
+        Hall hall2=new Hall();
+        map2.setHall(hall2);
+        hall2.setMap(map2);
+
+        Map map3=new Map();
+        Hall hall3=new Hall();
+        map3.setHall(hall3);
+        hall3.setMap(map3);
+
+        hall1.setName("a1");
+        hall2.setName("b1");
+        hall3.setName("b2");
+
         Branch branch1=new Branch("yes planet","images/firstCinema.jpg","Haifa","Lev Hamifratz");
         Branch branch2=new Branch("Hot","images/SecondCinema.jpg","Bialek","Keryon");
-        /*Hall hall1=new Hall(1,80,0,branch1,map1);
-        Hall hall2=new Hall(2,80,0,branch2,map2);
-        map1.setHall(hall1);
-        map2.setHall(hall2);
-        List<Hall> halls1=new ArrayList<Hall>();
-        halls1.add(hall1);
-        List<Hall> halls2=new ArrayList<Hall>();
-        halls2.add(hall2);
-        branch1.setHalls(halls1);
-        branch2.setHalls(halls2);
-        movie1.setHalls(halls1);
-        movie2.setHalls(halls1);
-        movie3.setHalls(halls2);
-        movie4.setHalls(halls1);
-        movie5.setHalls(halls2);
+
+        hall1.setBranch(branch1);
+        hall2.setBranch(branch2);
+        hall3.setBranch(branch2);
+
+        branch1.setHall(hall1);
+        branch2.setHall(hall2);
+        branch2.setHall(hall3);
+
+        Movie movie1=new Movie("The Godfather","Al pacino","Francis Ford","images/3.jpg",
+                "The Godfather is a classic movie released in 1972");
+        time1.setMovie(movie1);
+        time1.setHall(hall1);
+        hall1.addScreeningTime(time1);
+        movie1.setScreeningTime(time1);
+        Movie movie2=new Movie("Interstellar","Matthew Mchounghy","Christopher Nolan",
+                "images/4.jpg","Interstellar is fantasy movie about space released in 2014");
+        time2.setMovie(movie2);
+        time2.setHall(hall1);
+        hall1.addScreeningTime(time2);
+        movie2.setScreeningTime(time2);
+        Movie movie3=new Movie("Joker","Joaquin Phoenix","Todd Phillips",
+                "images/joker.jpg","Joker is a drama/crime movie made in 2019.");
+        time3.setMovie(movie3);
+        time3.setHall(hall2);
+        hall2.addScreeningTime(time3);
+        movie3.setScreeningTime(time3);
+        Movie movie4=new Movie("Fifty shades of grey","Dakota Johnson","Sam Taylor",
+                "images/fifty_shades.jpg","fifty shades of grey is a romance/drama movie made in 2015");
+        time4.setMovie(movie4);
+        time4.setHall(hall3);
+        hall3.addScreeningTime(time4);
+        movie4.setScreeningTime(time4);
+        Movie movie5=new Movie("The hangover","Bradley Cooper","Todd Phillips",
+                "images/hangover.jpg","The hangover is a comedy movie made in 2009");
+        time5.setMovie(movie5);
+        time5.setHall(hall2);
+        hall2.addScreeningTime(time5);
+        movie5.setScreeningTime(time5);
+        Time time12=new Time(31,12,2021,"22:00","00:00");
+        Time time13=new Time(20,1,2022,"15:00","17:30");
+        time12.setHall(hall1);
+        time12.setMovie(movie1);
+        hall1.addScreeningTime(time12);
+        time13.setHall(hall1);
+        time13.setMovie(movie1);
+        hall1.addScreeningTime(time13);
+        movie1.setScreeningTime(time12);
+        movie1.setScreeningTime(time13);
+
         session.save(map1);
-        session.flush();
-        session.save(map2);
-        session.flush();
+         
+        session.save(time1);
+        session.save(time12);
+        session.save(time13);
         session.save(hall1);
-        session.flush();
-        session.save(hall2);
-        session.flush();
-        session.save(halls1);
-        session.flush();
-        session.save(halls2);
-        session.flush();*/
         session.save(movie1);
-        session.flush();
+
+        session.save(time2);
         session.save(movie2);
-        session.flush();
+         
+        session.save(map2);
+         
+        session.save(hall2);
+        session.save(time3);
         session.save(movie3);
-        session.flush();
+         
+        session.save(map3);
+         
+        session.save(hall3);
         session.save(movie4);
-        session.flush();
+        session.save(time4);
         session.save(movie5);
-        session.flush();
+        session.save(time5);
+
         MovieList movies1=new MovieList();
         movies1.setMovies(movie1);
         movies1.setMovies(movie2);
+        movie1.setList(movies1);
+        movie2.setList(movies1);
         session.save(movies1);
-        session.flush();
         MovieList movies2=new MovieList();
         movies2.setMovies(movie3);
         movies2.setMovies(movie4);
         movies2.setMovies(movie5);
+        movie3.setList(movies2);
+        movie4.setList(movies2);
+        movie5.setList(movies2);
         session.save(movies2);
-        session.flush();
         branch1.setMovie(movies1);
         branch2.setMovie(movies2);
         session.save(branch1);
-        session.flush();
         session.save(branch2);
-        session.flush();
+         
         BranchesList branchesList=new BranchesList();
         branchesList.setBranch(branch1);
         branchesList.setBranch(branch2);
         session.save(branchesList);
-        session.flush();
+
 
         HomeWatch homeWatch=new HomeWatch(movies1);
         session.save(homeWatch);
-        session.flush();
+         session.flush();
 
     }
 

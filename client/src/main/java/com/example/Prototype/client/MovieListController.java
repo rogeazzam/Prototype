@@ -1,11 +1,15 @@
 package com.example.Prototype.client;
 
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -18,23 +22,39 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 
-public class MovieListController{
+public class MovieListController implements Initializable {
 	
     @FXML
     private Label titleLabel;
 
     @FXML
     private GridPane grid;
+
+	@FXML
+	private Button homeMovies;
     
 	private MovieList movies;
+
+	private String type;
 	
 	int column=0,row=1;
 
 	public void setData(MovieList movies) throws IOException {
 		this.movies=movies;
 		List<Movie> list=movies.getMovies();
-		display(list);
+		this.type="showmoviecostumer";
+		display(list, "showmoviecostumer");
 	}
+
+	public void setData(MovieList movies,String type) throws IOException {
+		this.movies=movies;
+		List<Movie> list=movies.getMovies();
+		if(type=="purchasingticket")
+			homeMovies.setVisible(false);
+		this.type="purchasingticket";
+		display(list,type);
+	}
+
 
 	@FXML
 	void sortByDate(ActionEvent event) throws IOException {
@@ -42,11 +62,12 @@ public class MovieListController{
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 		System.out.println(timeStamp);
 		String[] parts = timeStamp.split(".");
-		List<Movie> sorted = new ArrayList<>();
-		int min=list.get(0).getScreeningTime().getYear();
+		List<Movie> sorted = new ArrayList<Movie>();
+
+		/*int min=list.get(0).getScreeningTime().get(0).getYear();
 		int max=min;
 		for(Movie movie: list){
-			int time=movie.getScreeningTime().getYear();
+			int time=movie.getScreeningTime().get(0).getYear();
 			if(time<min)
 				min=time;
 			if(time>max)
@@ -59,10 +80,10 @@ public class MovieListController{
 					for (int h = 0; h <= 23; h++) {
 						for(int mi=0;mi <= 59; mi++) {
 							for (Movie movie : list) {
-								int year=movie.getScreeningTime().getYear();
-								int month=movie.getScreeningTime().getMonth();
-								int day=movie.getScreeningTime().getDay();
-								String[] time = movie.getScreeningTime().getBegTime().split(":");
+								int year=movie.getScreeningTime().get(0).getYear();
+								int month=movie.getScreeningTime().get(0).getMonth();
+								int day=movie.getScreeningTime().get(0).getDay();
+								String[] time = movie.getScreeningTime().get(0).getBegTime().split(":");
 								int hour=Integer.parseInt(time[0]);
 								int minute=Integer.parseInt(time[1]);
 								if (minute == mi && hour==h && day==d && month==m && year==i)
@@ -72,65 +93,40 @@ public class MovieListController{
 					}
 				}
 			}
-		}
-		/*Collections.copy(list,sorted);
-		sorted.clear();
-
-		int counter=min;
-		for(int i=0;i <= 12; i++){
-			for(Movie movie: list){
-				int time=movie.getScreeningTime().getMonth();
-				if(time==i)
-					sorted.add(movie);
-			}
-		}
-		Collections.copy(list,sorted);
-		sorted.clear();
-
-		for(int i=0;i <= 31; i++){
-			for(Movie movie: list){
-				int time=movie.getScreeningTime().getDay();
-				if(time==i)
-					sorted.add(movie);
-			}
-		}
-		Collections.copy(list,sorted);
-		sorted.clear();
-
-		for(int i=0;i <= 24; i++){
-			for(Movie movie: list){
-				String[] time=movie.getScreeningTime().getBegTime().split(":");
-				int hour=Integer.parseInt(time[0]);
-				if(hour==i)
-					sorted.add(movie);
-			}
-		}
-
-		Collections.copy(list,sorted);
-		sorted.clear();
-
-		for(int i=0;i <= 60; i++){
-			for(Movie movie: list){
-				String[] time=movie.getScreeningTime().getBegTime().split(":");
-				int minute=Integer.parseInt(time[1]);
-				if(minute==i)
-					sorted.add(movie);
-			}
 		}*/
 
-		display(sorted);
+		sorted.addAll(list);
+
+		for(int i=0; i < sorted.size()-1; i++){
+			for(int j=0; j< sorted.size()-i-1; j++){
+				if(sorted.get(j).getScreeningTime().get(0).greater(sorted.get(j+1).getScreeningTime().get(0))) {
+					Collections.swap(sorted, j, j+1);
+				}
+			}
+		}
+
+		display(sorted,type);
 	}
 
 
 	@FXML
 	void showHomeWatch(ActionEvent event) throws IOException {
-		//EventBus.getDefault().unregister(App.class);
+		EventBus.getDefault().unregister(App.class);
 		EventBus.getDefault().register(this);
 		SimpleClient.getClient().sendToServer("#HomeWatchList");
 	}
 
 	@Subscribe
-	public void display(List<Movie> list) throws IOException {
+	public void homeWatchEvent(MovieListEvent movieListEvent) throws IOException {
+		MovieList movieList=movieListEvent.getMovies();
+		List<Movie> movies=movieList.getMovies();
+		display(movies, "showmoviecostumer");
+		EventBus.getDefault().unregister(this);
+		EventBus.getDefault().register(App.class);
+	}
+
+	@Subscribe
+	public void display(List<Movie> list, String type) throws IOException {
 		grid.getChildren().clear();
 		column=0;
 		row=1;
@@ -142,7 +138,7 @@ public class MovieListController{
 
 			MovieController itemController =fxmlLoader.getController();
 			itemController.setData(movie);
-			itemController.setFxmlFile("showmoviecostumer");
+			itemController.setFxmlFile(type);
 
 			grid.add(anchorPane,column++,row);
 
@@ -163,5 +159,9 @@ public class MovieListController{
 
 			GridPane.setMargin(anchorPane, new Insets(0,0,10,30));
 		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 	}
 }

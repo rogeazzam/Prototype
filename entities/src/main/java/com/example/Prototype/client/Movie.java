@@ -6,6 +6,7 @@ import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,15 +26,8 @@ public class Movie implements Serializable {
 	@Column(name = "description")
     private String Text;
 
-    @OneToOne(
-            cascade = {CascadeType.ALL},
-            orphanRemoval = true
-    )
-    @JoinColumn(
-            name = "movie_time",
-            referencedColumnName = "id"
-    )
-    private Time screeningTime;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "movie", orphanRemoval = true)
+    private List<Time> screeningTime;
 
    /* @ManyToMany(
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
@@ -56,13 +50,15 @@ public class Movie implements Serializable {
     Movie(){
     }
     
-    public Movie(String name,String Actor, String Director, String ImgSrc,String Text,Time time){
+    public Movie(String name,String Actor, String Director, String ImgSrc,String Text){
     	this.name=name;
     	this.Actor=Actor;
     	this.Director=Director;
     	this.ImgSrc=ImgSrc;
     	this.Text=Text;
-    	this.screeningTime=time;
+    	this.screeningTime=new ArrayList<Time>();
+    	this.lists=new ArrayList<MovieList>();
+    	//this.screeningTime=time;
     }
     public int getId() {
         return this.id;
@@ -108,13 +104,25 @@ public class Movie implements Serializable {
 		Text = text;
 	}
 
-	public Time getScreeningTime() {
+	public List<Time> getScreeningTime() {
 		return screeningTime;
 	}
 
 	public void setScreeningTime(Time screeningTime) {
-		this.screeningTime = screeningTime;
+		this.screeningTime.add(screeningTime);
 	}
+
+	public List<MovieList> getLists(){
+        return this.lists;
+    }
+
+    public void setLists(List<MovieList> lists) {
+        this.lists = lists;
+    }
+
+    public void setList(MovieList list){
+        this.lists.add(list);
+    }
 
     /*public List<Hall> getHalls() {
         return halls;

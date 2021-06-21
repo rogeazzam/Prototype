@@ -148,8 +148,9 @@
                         <Polyline fill="CHARTREUSE" points="-50.0, -40.0, 0.0, 60.0, 0.0, 60.0, -50.0, -40.0" strokeType="INSIDE" />
                         <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button layoutY="38.0" mnemonicParsing="false" onAction="#BranchOpen" prefHeight="25.0" prefWidth="116.0" styleClass="search-button" stylesheets="@style.css" text="List of movies" />
+                              <Button layoutY="38.0" mnemonicParsing="false" onAction="#BranchOpen" prefHeight="25.0" prefWidth="116.0" styleClass="search-button" stylesheets="@style.css" text="Show Branches" />
                               <Button layoutX="511.0" layoutY="30.0" mnemonicParsing="false" onAction="#LoginDetected" prefHeight="42.0" prefWidth="64.0" styleClass="search-button" stylesheets="@style.css" text="Sign in" />
+                              <Button layoutX="143.0" layoutY="38.0" mnemonicParsing="false" onAction="#ListOpen" prefHeight="25.0" prefWidth="116.0" styleClass="search-button" stylesheets="@style.css" text="List Of Movies" />
                            </children></Pane>
                         <ImageView fitHeight="50.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <image>

@@ -22,10 +22,13 @@ public class Time implements Serializable {
 	
 	private String endTime;
 
-	@OneToOne(
-			mappedBy = "screeningTime"
-	)
+	@ManyToOne
+	@JoinColumn(name = "movie_id")
 	private Movie movie;
+
+	@ManyToOne
+	@JoinColumn(name = "hall_id")
+	private Hall hall;
 
 	public Time(){
 		super();
@@ -88,7 +91,37 @@ public class Time implements Serializable {
 		this.endTime=endTime;
 	}
 
-	public Time(String str){
+	public void setMovie(Movie movie){
+		this.movie=movie;
+	}
 
+	public Movie getMovie(){
+		return this.movie;
+	}
+
+	public void setHall(Hall hall) {
+		this.hall = hall;
+	}
+
+	public Hall getHall() {
+		return hall;
+	}
+
+	public boolean greater(Time other){
+		if(this.year != other.getYear())
+			return this.year > other.getYear();
+		if(this.month != other.getMonth())
+			return this.month > other.getMonth();
+		if(this.day != other.getDay())
+			return this.day > other.getDay();
+		String[] arr1=begTime.split(":");
+		int hour=Integer.parseInt(arr1[0]);
+		int minute=Integer.parseInt(arr1[1]);
+		String[] arr2=other.getBegTime().split(":");
+		int other_hour=Integer.parseInt(arr2[0]);
+		int other_minute=Integer.parseInt(arr2[1]);
+		if(hour != other_hour)
+			return hour > other_hour;
+		return minute > other_minute;
 	}
 }

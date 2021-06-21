@@ -2,6 +2,7 @@ package com.example.Prototype.client;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,20 +45,28 @@ public class BranchesController {
 
     @FXML
     void showMovies(ActionEvent event) throws IOException {
-        SimpleClient.getClient().sendToServer("#showMovies");
+        EventBus.getDefault().register(this);
+        SimpleClient.getClient().sendToServer("#showBranchMovies"+String.valueOf(branch.getId()));
     }
 
     @Subscribe
-    public void showMovies(MovieList movies) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("movielist.fxml"));
-        Parent root = loader.load();
+    public void showBMovies(MovieListEvent event) throws IOException {
+        Platform.runLater(()->{
+            MovieList movies=event.getMovies();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("movielist.fxml"));
+                Parent root = loader.load();
 
-        MovieListController itemController = loader.getController();
-        itemController.setData(movies);
+                MovieListController itemController = loader.getController();
+                itemController.setData(movies, "purchasingticket");
 
-        App.myStage.setScene(new Scene(root,600,600));
-        App.myStage.setFullScreen(true);
-        App.myStage.show();
+                App.myStage.setScene(new Scene(root, 600, 600));
+                App.myStage.setFullScreen(true);
+                App.myStage.show();
+            }catch (IOException e) {
+            e.printStackTrace();
+        }
+    });
     }
     
     private static Parent loadFXML(String fxml) throws IOException {

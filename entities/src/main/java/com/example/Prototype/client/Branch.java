@@ -3,11 +3,13 @@ package com.example.Prototype.client;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "branches")
-public class Branch {
+public class Branch implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -29,13 +31,16 @@ public class Branch {
 	@Column(name="branch_address")
 	private String StreetAddress;
 
-	/*@OneToMany(
-			fetch = FetchType.LAZY,
-			mappedBy = "branch"
-	)
-	private List<Hall> halls;*/
+	@ManyToMany(mappedBy = "branches")
+	private List<BranchesList> lists;
 
-	public Branch(){}
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "branch")
+	private List<Hall> halls;
+
+	public Branch(){
+		this.lists=new ArrayList<BranchesList>();
+		this.halls=new ArrayList<Hall>();
+	}
 	
 	public Branch(String name,String ImgSrc,String City,String StreetAddress){
 		this.name=name;
@@ -43,6 +48,12 @@ public class Branch {
 		this.City=City;
 		this.StreetAddress=StreetAddress;
 		this.movies=new MovieList();
+		this.lists=new ArrayList<BranchesList>();
+		this.halls=new ArrayList<Hall>();
+	}
+
+	public int getId(){
+		return this.id;
 	}
 
 	public String getStreetAddress() {
@@ -84,12 +95,16 @@ public class Branch {
 	public void setName(String name) {
 		this.name = name;
 	}
-/*
+
 	public List<Hall> getHalls() {
 		return halls;
 	}
 
 	public void setHalls(List<Hall> halls) {
 		this.halls = halls;
-	}*/
+	}
+
+	public void setHall(Hall hall){
+		this.halls.add(hall);
+	}
 }

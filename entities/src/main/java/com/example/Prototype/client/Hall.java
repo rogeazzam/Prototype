@@ -1,97 +1,74 @@
-/*package com.example.Prototype.client;
+package com.example.Prototype.client;
 
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "halls")
-public class Hall {
+@Table(name="halls")
+public class Hall implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
     @NotNull
-    @Column(name = "number",unique = true)
-    private int num;
+    @Column(unique = true)
+    private String name;
 
-    @NotNull
-    @Column(name = "num_of_seats")
-    private int numOfseats;
-
-    @ManyToMany(
-            mappedBy = "halls",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            targetEntity = Movie.class
-    )
-    private List<Movie> movies;
-
-    public int getId() {
-        return id;
-    }
-
-    @NotNull
-    @Column(name = "seats_taken")
-    private int seatsTaken;
-
-    @ManyToOne(
-            fetch = FetchType.LAZY
-    )
-    @JoinColumn(
-            name = "branch_id"
-    )
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
     private Branch branch;
 
-    public Hall() {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "map_id", referencedColumnName = "id")
+    private Map map;
+
+    @OneToMany(cascade = CascadeType.MERGE,fetch = FetchType.LAZY, mappedBy = "hall")
+    @Fetch(FetchMode.SUBSELECT)
+    private List<Time> screeningTime;
+
+    public String getName() {
+        return name;
     }
 
-    public Hall(int num, int numOfseats, int seatsTaken, Branch branch) {
-        this.num = num;
-        this.numOfseats = numOfseats;
-        this.seatsTaken = seatsTaken;
-        this.branch = branch;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getNum() {
-        return num;
+    public Hall(){
+        this.screeningTime=new ArrayList<Time>();
     }
 
-    public void setNum(int num) {
-        this.num = num;
-    }
-
-    public int getNumOfseats() {
-        return numOfseats;
-    }
-
-    public void setNumOfseats(int numOfseats) {
-        this.numOfseats = numOfseats;
-    }
-
-    public int getSeatsTaken() {
-        return seatsTaken;
-    }
-
-    public void setSeatsTaken(int seatsTaken) {
-        this.seatsTaken = seatsTaken;
-    }
-
-    public Branch getBranch() {
-        return branch;
+    public Branch getBranch(){
+        return this.branch;
     }
 
     public void setBranch(Branch branch) {
         this.branch = branch;
     }
 
-    public List<Movie> getMovies(){
-        return movies;
+    public Map getMap(){
+        return this.map;
     }
 
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
+    public void setMap(Map map){
+        this.map=map;
+    }
+
+    public List<Time> getScreeningTime(){
+        return this.screeningTime;
+    }
+
+    public void setScreeningTime(List<Time> screeningTime) {
+        this.screeningTime = screeningTime;
+    }
+
+    public void addScreeningTime(Time time){
+        this.screeningTime.add(time);
     }
 }
-*/

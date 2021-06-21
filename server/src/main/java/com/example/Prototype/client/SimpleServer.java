@@ -36,6 +36,8 @@ public class SimpleServer extends AbstractServer {
 		configuration.addAnnotatedClass(Time.class);
 		configuration.addAnnotatedClass(Person.class);
 		configuration.addAnnotatedClass(HomeWatch.class);
+		configuration.addAnnotatedClass(Hall.class);
+		configuration.addAnnotatedClass(Map.class);
 		ServiceRegistry serviceRegistry = (new StandardServiceRegistryBuilder())
 				.applySettings(configuration.getProperties()).build();
 		return configuration.buildSessionFactory(serviceRegistry);
@@ -68,11 +70,14 @@ public class SimpleServer extends AbstractServer {
 		try {
 			tx=newsession.beginTransaction();
 			if(msg.getClass().equals(Time.class)){
-				Time time=(Time) msg;
-				newsession.save(time);
+				newsession.update((Time)msg);
+				newsession.flush();
 			}else if(msg.getClass().equals(Movie.class)){
 				//newsession.delete((Movie)msg);
 				newsession.update((Movie)msg);
+				newsession.flush();
+			}else if(msg.getClass().equals(Hall.class)){
+				newsession.update((Hall)msg);
 			}
 			else if (msgString.startsWith("#showBranches")) {
 				try {
@@ -90,13 +95,7 @@ public class SimpleServer extends AbstractServer {
 			}
 			else if(msgString.startsWith("#showMovies")){
 				try {
-					List<Movie> movies= SimpleServer.getAll(Movie.class,newsession);
-					MovieList movieList=new MovieList();
-					for(Movie movie:movies) {
-						movieList.setMovies(movie);
-					}
-					client.sendToClient(movieList);
-					System.out.format("Sent movies to client %s\n", client.getInetAddress().getHostAddress());
+					ShowMovies(client,newsession);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (Exception e) {
@@ -113,7 +112,7 @@ public class SimpleServer extends AbstractServer {
 			}else if(msgString.startsWith("#DeleteTime")){
 				int id=Integer.parseInt(msgString.substring(11));
 				Movie movie=(Movie)newsession.load(Movie.class,id);
-				int timeId=movie.getScreeningTime().getId();
+				int timeId=movie.getScreeningTime().get(0).getId();
 				System.out.println(timeId);
 				Time time=(Time)newsession.load(Time.class,timeId);
 				newsession.delete(timeId);
@@ -122,22 +121,44 @@ public class SimpleServer extends AbstractServer {
 			}else if(msgString.startsWith("#DeleteMovie")){
 				int id=Integer.parseInt(msgString.substring(12));
 				Movie movieToDelete=(Movie)newsession.load(Movie.class,id);
-				newsession.delete(movieToDelete.getScreeningTime());
+				List<Time> times=movieToDelete.getScreeningTime();
+				for(Time time:times){
+					time.setMovie(null);
+					time.setHall(null);
+					newsession.delete(time);
+				}
+				movieToDelete.setScreeningTime(null);
+				List<MovieList> movieToDeleteLists=movieToDelete.getLists();
+				for(MovieList movieList:movieToDeleteLists){
+					movieList.getMovies().remove(movieToDelete);
+				}
+				movieToDelete.setLists(null);
 				newsession.delete(movieToDelete);
 				newsession.flush();
-				List<Movie> movies=getAll(Movie.class,newsession);
-				MovieList movieList=new MovieList();
-				for(Movie movie:movies) {
-					movieList.setMovies(movie);
-				}
-				client.sendToClient(movieList);
+
+				//ShowMovies(client, newsession);
+				client.sendToClient(new goBack());
+
 			}else if(msgString.startsWith("#HomeWatchList")){
 				List<HomeWatch> homeWatch=getAll(HomeWatch.class, newsession);
 				 //movies=new MovieList();
 				MovieList movies=homeWatch.get(0).getMovies();
+				List<Movie> list=movies.getMovies();
+				for(Movie movie: list){
+					System.out.println(movie.getName());
+				}
 				client.sendToClient(movies);
 			}else if(msgString.startsWith("#AddMovie")){
 				addMovie(msgString.substring(9),newsession);
+			}else if(msgString.startsWith("#showBranchMovies")){
+				int id=Integer.parseInt(msgString.substring(17));
+				Branch branch=(Branch) newsession.load(Branch.class,id);
+				MovieList movies=branch.getMovie();
+				List<Movie> movieList=movies.getMovies();
+				for(Movie movie:movieList){
+					System.out.println(movie.getName());
+				}
+				client.sendToClient(movies);
 			}
 			tx.commit();
 		} catch (Exception var10) {
@@ -155,17 +176,45 @@ public class SimpleServer extends AbstractServer {
 		}
 	}
 
-	public void addMovie(String str,Session newsession){
+	public void addMovie(String str,Session newsession) throws Exception {
 		String[] parts=str.split("%%");
 		String[] date=parts[1].split("-");
 		int day=Integer.parseInt(date[2]);
 		int month=Integer.parseInt(date[1]);
 		int year=Integer.parseInt(date[0]);
 		Time time=new Time(day,month,year,parts[2],parts[3]);
+		//Branch branch=(Branch) newsession.load(Branch.class,parts[4]);
+		List<Hall> halls=getAll(Hall.class,newsession);
+		Hall goal=new Hall();
+
+		for(Hall hall:halls){
+			if(hall.getName()==parts[5])
+				goal=hall;
+		}
+
+		Movie newMovie=new Movie(parts[0], parts[6], parts[7], parts[8], parts[9]);
+
+		/*if(hall.getBranch()!=branch)
+			return;*/
+
+		time.setMovie(newMovie);
+		time.setHall(goal);
+		goal.addScreeningTime(time);
+		newMovie.setScreeningTime(time);
+
+		newsession.save(goal);
 		newsession.save(time);
-		newsession.flush();
-		Movie newMovie=new Movie(parts[0], parts[6], parts[7], parts[8], parts[9], time);
 		newsession.save(newMovie);
 		newsession.flush();
+	}
+
+	public void ShowMovies(ConnectionToClient client, Session newsession) throws Exception {
+		List<Movie> movies= SimpleServer.getAll(Movie.class,newsession);
+		MovieList movieList=new MovieList();
+		for(Movie movie:movies) {
+			movieList.setMovies(movie);
+		}
+		client.sendToClient(movieList);
+		System.out.format("Sent movies to client %s\n", client.getInetAddress().getHostAddress());
 	}
 }

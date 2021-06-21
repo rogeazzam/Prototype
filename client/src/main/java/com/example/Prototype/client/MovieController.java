@@ -65,6 +65,9 @@ public class MovieController {
         }else if(fxmlFile=="showmoviecostumer"){
             ShowMovieCostumerController itemController = loader.getController();
             itemController.setData(movie);
+        }else if(fxmlFile=="purchasingticket"){
+            PurchasingTicketController itemController = loader.getController();
+            itemController.setData(movie);
         }
 
         Scene scene=new Scene(root,600,600);

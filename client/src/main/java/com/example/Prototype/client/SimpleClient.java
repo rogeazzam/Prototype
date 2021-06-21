@@ -16,11 +16,13 @@ public class SimpleClient extends AbstractClient {
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		if(msg.getClass().equals(BranchesList.class)) {
-			EventBus.getDefault().post(new BranchesList((BranchesList) msg));
+			EventBus.getDefault().post(new BranchesListEvent((BranchesList) msg));
 		}else if(msg.getClass().equals(MovieList.class)){
 			EventBus.getDefault().post(new MovieListEvent((MovieList) msg));
 		} else if (msg.getClass().equals(Person.class)) {
 			EventBus.getDefault().post((Person) msg);
+		}else if(msg.getClass().equals(goBack.class)){
+			EventBus.getDefault().post((goBack)msg);
 		}
 	}
 	

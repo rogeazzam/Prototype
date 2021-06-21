@@ -5,7 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
@@ -52,6 +55,8 @@ public class AddMovieController {
 
     @FXML
     private DatePicker date;
+
+    final FileChooser fileChooser = new FileChooser();
 
     @FXML
     void saveOP(ActionEvent event) throws IOException {

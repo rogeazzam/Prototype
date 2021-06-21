@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -27,7 +28,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-public class SecondaryController implements Initializable{
+public class SecondaryController{
 
     @FXML
     private VBox adBox;
@@ -59,10 +60,16 @@ public class SecondaryController implements Initializable{
 
     int entered=0;
 
+    @FXML
+    void ListOpen(ActionEvent event) throws IOException {
+        SimpleClient.getClient().sendToServer("#showMovies");
+    }
 
     @FXML
     void BranchOpen(ActionEvent event) throws IOException {
-        SimpleClient.getClient().sendToServer("#showMovies");
+        EventBus.getDefault().unregister(App.class);
+        EventBus.getDefault().register(this);
+        SimpleClient.getClient().sendToServer("#showBranches");
     }
 
     @FXML
@@ -75,25 +82,32 @@ public class SecondaryController implements Initializable{
             if (branches1.get(i).getCity().toLowerCase().contains(SearchText.getText().toLowerCase()))
                 branches2.setBranch(branches1.get(i));
         }
-    		display(branches2);
+    		//display(branches2);
     }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-	}
 
-	@Subscribe
-	void display(BranchesList branchesList) throws IOException {
-        EventBus.getDefault().register(this);
-        entered++;
-        if(entered==0)
-            this.branch=branchesList;
-        List<Branch> branches=branchesList.getBranches();
-        for(Branch branch:branches) {
-            if (column == 4) {
-                row++;
-                column = 0;
+	public void setData(List<Branch> branches) throws IOException {
+    }
+
+    @Subscribe
+    public void onBranchListEvent(BranchesListEvent event) throws IOException {
+        Platform.runLater(()->{
+            BranchesList branches= event.getBranches();
+            List<Branch> branchList=branches.getBranches();
+            try {
+                display(branchList);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        });
+        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().register(App.class);
+    }
+
+	void display(List<Branch> branches) throws IOException {
+        column=0;
+        row=1;
+        for(Branch branch:branches) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(this.getClass().getResource("branches.fxml"));
             AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
@@ -113,6 +127,7 @@ public class SecondaryController implements Initializable{
             grid.setMaxHeight(Region.USE_PREF_SIZE);
 
             GridPane.setMargin(anchorPane, new Insets(0, 0, 10, 0));
+            row++;
         }
 	}
 

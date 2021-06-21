@@ -29,6 +29,6 @@
         </content>
       </ScrollPane>
       <Button layoutX="278.0" layoutY="95.0" mnemonicParsing="false" onAction="#sortByDate" prefHeight="25.0" prefWidth="117.0" text="Show Most Recent" />
-      <Button layoutX="417.0" layoutY="95.0" mnemonicParsing="false" onAction="#showHomeWatch" prefHeight="25.0" prefWidth="117.0" text="Home Movies" />
+      <Button fx:id="homeMovies" layoutX="417.0" layoutY="95.0" mnemonicParsing="false" onAction="#showHomeWatch" prefHeight="25.0" prefWidth="117.0" text="Home Movies" />
    </children>
 </AnchorPane>

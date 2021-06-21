@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -73,6 +74,9 @@ public class App extends Application {
         });
     }
 
+    static ProfileController itemController;
+    static Scene saveScene;
+
     @Subscribe
     public void onLogin(Person person){
         Platform.runLater(()->{
@@ -80,10 +84,11 @@ public class App extends Application {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
                 Parent root = loader.load();
 
-                ProfileController itemController = loader.getController();
+                itemController = loader.getController();
                 itemController.setData(person);
 
                 Scene newscene=new Scene(root);
+                saveScene=newscene;
                 App.myStage.setScene(newscene);
                 App.myStage.setMaximized(true);
                 sceneStack.push(newscene);

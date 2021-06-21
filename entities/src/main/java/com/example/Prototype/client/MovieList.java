@@ -29,6 +29,7 @@ public class MovieList implements Serializable {
 	private List<Branch> branches;
 
 	@OneToOne(
+			fetch = FetchType.LAZY,
 			mappedBy = "movies"
 	)
 	private HomeWatch homeWatch;

@@ -41,15 +41,18 @@ public class ProfileController {
     public void setData(Person person){
         this.user=person;
         this.user_type=user.getType();
-        if(user_type.equals("Emplyee"))
-            addBtn.setVisible(false);
+        addBtn.setText(person.getFirstname());
+        //if(user_type.equals("Emplyee"))
+          //  addBtn.setVisible(false);
     }
 
     @Subscribe
     public void display(MovieListEvent movies) throws IOException {
         //addBtn.setVisible(false);
+        //processGrid.getChildren().clear();
         Platform.runLater(()-> {
             try {
+                processGrid.getChildren().clear();
             List<Movie> movies1 = movies.getMovies().getMovies();
             for (Movie movie : movies1) {
                 if (column == 4) {
@@ -91,7 +94,8 @@ public class ProfileController {
 
     @FXML
     public void moviesEvent(javafx.event.ActionEvent actionEvent) throws IOException {
-        EventBus.getDefault().register(this);
+        if(!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
 
         SimpleClient.getClient().sendToServer("#showMovies");
     }
