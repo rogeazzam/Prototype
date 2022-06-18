@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="380.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.BookingSuccessController">
+   <children>
+      <AnchorPane layoutY="-16.0" prefHeight="412.0" prefWidth="470.0">
+         <children>
+            <ImageView fitHeight="430.0" fitWidth="502.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/movieticket.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="52.0" fitWidth="167.0" layoutX="178.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/bookingSuccessful.png" />
+               </image>
+            </ImageView>
+            <ToggleButton layoutX="219.0" layoutY="342.0" mnemonicParsing="false" onAction="#backOP" prefHeight="44.0" prefWidth="99.0" style="-fx-background-color: white;" text="Close">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </ToggleButton>
+            <Label layoutX="135.0" layoutY="110.0" text="Ticket Was Sent to your email address" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="167.0" layoutY="171.0" text="Use It to enter the movie." textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

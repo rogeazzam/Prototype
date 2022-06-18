@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.PurplePassController">
+   <children>
+      <CheckBox fx:id="check1" layoutX="441.0" layoutY="47.0" mnemonicParsing="false" onAction="#chosen1" text="Limited Number Of Seats" textFill="#009726">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </CheckBox>
+      <DatePicker fx:id="startDate" layoutX="114.0" layoutY="44.0" promptText="Starting Date" />
+      <DatePicker fx:id="endDate" layoutX="114.0" layoutY="137.0" promptText="Ending Date" />
+      <Label layoutX="24.0" layoutY="47.0" text="Starts At">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="140.0" text="Ends At">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="487.0" layoutY="347.0" mnemonicParsing="false" onAction="#updateOP" prefHeight="25.0" prefWidth="78.0" styleClass="search-button" stylesheets="@style.css" text="Update" />
+      <TextField fx:id="maxSeats" layoutX="162.0" layoutY="245.0" prefHeight="25.0" prefWidth="78.0" />
+      <Label layoutX="10.0" layoutY="247.0" text="Max Number Of Seats">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="check2" layoutX="441.0" layoutY="80.0" mnemonicParsing="false" onAction="#chosen2" text="Cancel Screenings" textFill="#009726">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="check3" layoutX="441.0" layoutY="112.0" mnemonicParsing="false" onAction="#chosen3" text="No Restrictions" textFill="#009726">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </CheckBox>
+      <Label fx:id="errorMsg" layoutX="441.0" layoutY="162.0" prefHeight="17.0" prefWidth="152.0" textFill="#c30000">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.AddMovieController">
+   <children>
+      <TextField fx:id="name" layoutX="84.0" layoutY="36.0" prefHeight="25.0" prefWidth="174.0" promptText="Movie Name" styleClass="seat2-color" stylesheets="@style.css" />
+      <Text layoutX="39.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+      <Text layoutX="42.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+      <Text layoutX="30.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="start time" />
+      <Text layoutX="31.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="end time" />
+      <ChoiceBox fx:id="startHour" layoutX="84.0" layoutY="114.0" prefWidth="150.0" styleClass="search-button" stylesheets="@style.css" />
+      <ChoiceBox fx:id="startMinute" layoutX="245.0" layoutY="114.0" prefWidth="150.0" styleClass="search-button" stylesheets="@style.css" />
+      <ChoiceBox fx:id="endHour" layoutX="84.0" layoutY="153.0" prefWidth="150.0" styleClass="search-button" stylesheets="@style.css" />
+      <ChoiceBox fx:id="endMinute" layoutX="245.0" layoutY="153.0" prefWidth="150.0" styleClass="search-button" stylesheets="@style.css" />
+      <Text layoutX="36.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Branch" />
+      <Text layoutX="45.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hall" />
+      <Text layoutX="286.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+      <TextField fx:id="branch" layoutX="84.0" layoutY="210.0" promptText="Branch Name" styleClass="seat2-color" stylesheets="@style.css" />
+      <TextField fx:id="hall" layoutX="84.0" layoutY="252.0" promptText="Hall Name" styleClass="seat2-color" stylesheets="@style.css" />
+      <TextArea fx:id="description" layoutX="367.0" layoutY="237.0" prefHeight="154.0" prefWidth="200.0" styleClass="seat2-color" stylesheets="@style.css" />
+      <Button fx:id="save" layoutX="84.0" layoutY="364.0" mnemonicParsing="false" onAction="#saveOP" styleClass="dark-color" stylesheets="@style.css" text="Save" textFill="WHITE" />
+      <TextField fx:id="actor" layoutX="84.0" layoutY="287.0" promptText="Main Actor Name" styleClass="seat2-color" stylesheets="@style.css" />
+      <TextField fx:id="director" layoutX="84.0" layoutY="323.0" promptText="Director Name" styleClass="seat2-color" stylesheets="@style.css" />
+      <Text layoutX="43.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Actor" />
+      <Text layoutX="34.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Director" />
+      <Label fx:id="errorMsg" layoutX="320.0" layoutY="202.0" />
+      <TextField fx:id="imageSrc" layoutX="400.0" layoutY="37.0" prefHeight="25.0" prefWidth="167.0" styleClass="seat2-color" stylesheets="@style.css" text="images/" />
+      <DatePicker fx:id="date" layoutX="77.0" layoutY="77.0" prefHeight="25.0" prefWidth="200.0" styleClass="seat2-color" stylesheets="@style.css" />
+      <Text layoutX="320.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image Source" />
+      <Button fx:id="exitBtn" layoutX="138.0" layoutY="364.0" mnemonicParsing="false" onAction="#exitOp" prefHeight="25.0" prefWidth="41.0" styleClass="dark-color" stylesheets="@style.css" text="Exit" textFill="WHITE" />
+   </children>
+</AnchorPane>

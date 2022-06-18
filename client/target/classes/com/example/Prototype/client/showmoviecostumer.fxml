@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="810.0" prefWidth="1315.0" styleClass="background-image_movie" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.ShowMovieCostumerController">
+   <children>
+      <Label fx:id="movieName" alignment="CENTER" contentDisplay="CENTER" layoutX="441.0" layoutY="37.0" prefHeight="21.0" prefWidth="434.0" text="aa" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold Italic" size="18.0" />
+         </font></Label>
+      <ImageView fx:id="movieImg" fitHeight="333.0" fitWidth="336.0" layoutX="56.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="movieText" layoutX="707.0" layoutY="239.0" prefHeight="387.0" prefWidth="530.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <GridPane fx:id="grid" layoutX="799.0" layoutY="282.0" prefHeight="0.0" prefWidth="0.0">
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <Label fx:id="screeningTimeLabel" layoutX="14.0" layoutY="405.0" prefHeight="228.0" prefWidth="458.0" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Button layoutX="56.0" layoutY="25.0" mnemonicParsing="false" onAction="#backOP" prefHeight="25.0" prefWidth="70.0" styleClass="fruit-item" stylesheets="@style.css" text="Back" />
+   </children>
+</AnchorPane>
