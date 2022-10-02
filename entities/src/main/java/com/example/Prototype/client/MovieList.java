@@ -16,7 +16,7 @@ public class MovieList implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "movielists",
 			joinColumns = { @JoinColumn(name = "movielist_id") },
@@ -25,10 +25,11 @@ public class MovieList implements Serializable {
 	private List<Movie> movies=new ArrayList<Movie>();
 	private int size=0;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movies")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movies")
 	private List<Branch> branches;
 
 	@OneToOne(
+			cascade = CascadeType.ALL,
 			fetch = FetchType.LAZY,
 			mappedBy = "movies"
 	)
@@ -54,6 +55,11 @@ public class MovieList implements Serializable {
 		this.size++;
 	}
 
+	public void setMovies(List<Movie> movieList) {
+		this.movies=movieList;
+		this.size=movieList.size();
+	}
+
 	public int getSize() {
 		return size;
 	}
@@ -68,5 +74,13 @@ public class MovieList implements Serializable {
 
 	public void setBranch(Branch branch) {
 		branches.add(branch);
+	}
+
+	public HomeWatch getHomeWatch() {
+		return homeWatch;
+	}
+
+	public void setHomeWatch(HomeWatch homeWatch) {
+		this.homeWatch = homeWatch;
 	}
 }

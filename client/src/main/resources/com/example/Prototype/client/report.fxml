@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1315.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.ReportController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1315.0" layoutX="7.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/report_background.jpg" />
+         </image>
+      </ImageView>
+      <StackedBarChart fx:id="stackedBarChart" layoutX="257.0" layoutY="202.0" prefHeight="544.0" prefWidth="791.0" style="-fx-background-color: grey;" title="Monthly Complaint Stats">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelFill="WHITE" tickLabelGap="1.0" tickLength="5.0" tickUnit="2.0" upperBound="19.0" />
+        </yAxis>
+      </StackedBarChart>
+      <Button layoutX="659.0" layoutY="141.0" mnemonicParsing="false" onAction="#ticketStatsOP" prefHeight="25.0" prefWidth="105.0" styleClass="search-button" stylesheets="@style.css" text="Ticket Stats" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="790.0" layoutY="141.0" mnemonicParsing="false" onAction="#otherOP" prefHeight="25.0" prefWidth="105.0" styleClass="search-button" stylesheets="@style.css" text="Other Stats" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="521.0" layoutY="141.0" mnemonicParsing="false" onAction="#complaintStatsOP" prefHeight="25.0" prefWidth="105.0" styleClass="search-button" stylesheets="@style.css" text="Complaint Stats" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="11.0" />
+         </font>
+      </Button>
+      <Button layoutX="382.0" layoutY="141.0" mnemonicParsing="false" onAction="#refundOP" prefHeight="25.0" prefWidth="105.0" styleClass="search-button" stylesheets="@style.css" text="Refund Stats" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="35.0" layoutY="28.0" mnemonicParsing="false" onAction="#backOP" prefHeight="19.0" prefWidth="64.0" styleClass="search-button" stylesheets="@style.css" text="Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <HBox fx:id="hBox" layoutX="254.0" layoutY="202.0" prefHeight="544.0" prefWidth="791.0">
+         <children>
+            <ScrollPane prefHeight="173.0" prefWidth="1041.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="538.0" prefWidth="799.0">
+                     <children>
+                        <TableView fx:id="table" layoutX="14.0" layoutY="14.0" prefHeight="514.0" prefWidth="764.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

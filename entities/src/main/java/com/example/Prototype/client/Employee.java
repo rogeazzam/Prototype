@@ -1,40 +1,25 @@
 package com.example.Prototype.client;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name = "person")
 public class Employee extends Person{
-    //private List<Report> reports;
-    private String ComplaintSolve;
+
+    public Employee(){
+        super();
+        this.type="Employee";
+    }
 
     public Employee(String firstname, String lastname, String Mail, String Password, String UserName){
         super(firstname,lastname,Mail,Password,UserName);
-        this.type="Emplyee";
-    }
-
-    /*public List<Report> getReports() {
-        return reports;
-    }*/
-
-    public String getComplaintSolve() {
-        return ComplaintSolve;
+        this.type="Employee";
     }
 
     @Override
     public String getType(){
         return this.type;
-    }
-
-    /*public void setReports(List<Report> reports) {
-        this.reports = reports;
-    }*/
-
-    public void setComplaintSolve(String complaintSolve) {
-        ComplaintSolve = complaintSolve;
     }
 
     @Override

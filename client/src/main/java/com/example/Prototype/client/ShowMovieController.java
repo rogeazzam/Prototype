@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -56,6 +57,8 @@ public class ShowMovieController {
 	private Label screeningTimeLabel;
 	@FXML
 	private Label errorMsg;
+	@FXML
+	private TextField priceTxt;
 
 	@FXML
 	private GridPane btnsGrid;
@@ -146,10 +149,6 @@ public class ShowMovieController {
 		}
 
 		else {
-			/*Time time1=new Time((int) (DayOp.getValue()), (int) MonthOp.getValue(), (int) YearOp.getValue(),
-					String.valueOf(BegHour.getValue()) +":"+  String.valueOf(BegMinute.getValue()),
-					String.valueOf(endHour.getValue()) +":"+ String.valueOf(endMinute.getValue()));
-			movie.setScreeningTime(time1);*/
 
 			screeningTimeLabel.setText(screeningTimeLabel.getText().replaceAll(
 					"Date of screening: " +String.valueOf(movie.getScreeningTime().get(index).getDay())
@@ -165,29 +164,21 @@ public class ShowMovieController {
 			movie.getScreeningTime().get(index).setBegTime(String.valueOf(BegHour.getValue()) + ":" + String.valueOf(BegMinute.getValue()));
 			movie.getScreeningTime().get(index).setEndTime(String.valueOf(endHour.getValue()) +":"+ String.valueOf(endMinute.getValue()));
 
-			for(int i=index; i > 0; i--){
-				if(!movie.getScreeningTime().get(0).greater(movie.getScreeningTime().get(i-1)))
-					Collections.swap(movie.getScreeningTime(),i,i-1);
-				else
-					break;
+			if(movie.getScreeningTime().get(index).getHall() != null) {
+				for (int i = index; i > 0; i--) {
+					if (!movie.getScreeningTime().get(i).greater(movie.getScreeningTime().get(i - 1)))
+						Collections.swap(movie.getScreeningTime(), i, i - 1);
+					else
+						break;
+				}
+				for (int i = index; i < movie.getScreeningTime().size(); i++) {
+					if (movie.getScreeningTime().get(i).greater(movie.getScreeningTime().get(i + 1)))
+						Collections.swap(movie.getScreeningTime(), i, i + 1);
+					else
+						break;
+				}
 			}
 
-			/*String id=String.valueOf(movie.getId());
-			System.out.println(id);
-			//SimpleClient.getClient().sendToServer("#DeleteTime"+ id);
-			Time timeToDelete=movie.getScreeningTime().get(index);
-			Hall hall=timeToDelete.getHall();
-			timeToDelete.setMovie(null);
-			movie.getScreeningTime().remove(timeToDelete);
-			timeToDelete.setHall(null);
-			hall.getScreeningTime().remove(timeToDelete);
-
-			time1.setHall(hall);
-			time1.setMovie(movie);
-			hall.addScreeningTime(time1);
-			movie.getScreeningTime().add(time1);
-
-			SimpleClient.getClient().sendToServer(hall);*/
 			SimpleClient.getClient().sendToServer(movie.getScreeningTime().get(index));
 		}
 	}
@@ -210,42 +201,32 @@ public class ShowMovieController {
 
 	@FXML
 	public void showMovies(javafx.event.ActionEvent actionEvent) throws IOException {
-		/*App.myStage.setScene(App.sceneStack.peek());
-		App.myStage.setFullScreen(true);
-		App.myStage.show();*/
-		/*FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
-		Parent root = loader.load();
-
-		loader.setController(App.itemController);
-
-		Scene newscene=new Scene(root);*/
-		App.myStage.setScene(App.saveScene);
+		App.myStage.setScene(SecondaryController.saveScene);
 		App.myStage.setMaximized(true);
 		App.myStage.show();
 	}
 
 	@FXML
 	public void DeleteOP(ActionEvent actionEvent) throws IOException {
-    	//App app=new App();
-    	//EventBus.getDefault().register(app);
 		String id=String.valueOf(movie.getId());
 		if(!EventBus.getDefault().isRegistered(this))
 			EventBus.getDefault().register(this);
 		SimpleClient.getClient().sendToServer("#DeleteMovie"+id);
 	}
 
+
+	@FXML
+	void UpdatePrice(ActionEvent event) throws IOException {
+    	int id=movie.getScreeningTime().get(updateChoice.getValue()-1).getId();
+    	System.out.println(id);
+    	SimpleClient.getClient().sendToServer("#UpdatePermission" + "%%"
+					+ String.valueOf(id) + "%%" + priceTxt.getText());
+	}
+
 	@Subscribe
 	public void backToProfile(goBack backEvent) throws IOException {
 		Platform.runLater(()-> {
-			/*FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
-			Parent root = null;
-
-				root = loader.load();
-
-			App.itemController = loader.getController();
-
-			Scene newscene=new Scene(root);*/
-			App.myStage.setScene(App.saveScene);
+			App.myStage.setScene(SecondaryController.saveScene);
 			App.myStage.setMaximized(true);
 			App.myStage.show();
 		});

@@ -54,13 +54,16 @@ public class BranchesController {
         Platform.runLater(()->{
             MovieList movies=event.getMovies();
             try {
+                EventBus.getDefault().unregister(this);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("movielist.fxml"));
                 Parent root = loader.load();
 
                 MovieListController itemController = loader.getController();
-                itemController.setData(movies, "purchasingticket");
+                itemController.setData(movies, "purchasingticket"+branch.getName());
 
-                App.myStage.setScene(new Scene(root, 600, 600));
+                Scene scene=new Scene(root);
+                App.myStage.setScene(scene);
+                SecondaryController.saveScene=scene;
                 App.myStage.setFullScreen(true);
                 App.myStage.show();
             }catch (IOException e) {

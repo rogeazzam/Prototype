@@ -61,38 +61,39 @@
                         <Insets left="50.0" right="50.0" />
                      </VBox.margin>
                      <children>
-                        <HBox prefHeight="60.0" prefWidth="335.0">
+                        <Label prefHeight="49.0" prefWidth="331.0" text="Already a Costumer?" textFill="#878787">
+                           <font>
+                              <Font name="Cambria Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <AnchorPane prefHeight="282.0" prefWidth="335.0">
                            <children>
-                              <Label fx:id="movieNameLabel" prefHeight="48.0" prefWidth="313.0" text="The Shawshank Redemption" textFill="#b5afaf">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="69.0" layoutY="21.0" text="See what's on your profile!" textAlignment="JUSTIFY" textFill="#8a8a8a">
                                  <font>
-                                    <Font name="Cambria" size="24.0" />
+                                    <Font name="System Bold Italic" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="4.0" layoutY="78.0" text="Personal ID:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="175.0" layoutY="129.0" mnemonicParsing="false" onAction="#SendCode" prefHeight="25.0" prefWidth="141.0" styleClass="search-button" stylesheets="@style.css" text="Send Verification Code" />
+                              <TextField fx:id="costumerID" layoutX="115.0" layoutY="76.0" prefHeight="25.0" prefWidth="201.0" />
+                              <TextField fx:id="verify" layoutX="114.0" layoutY="182.0" prefHeight="25.0" prefWidth="203.0" />
+                              <Label layoutX="4.0" layoutY="184.0" text="Verification Code:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="175.0" layoutY="219.0" mnemonicParsing="false" onAction="#VerifyCode" prefHeight="25.0" prefWidth="141.0" styleClass="search-button" stylesheets="@style.css" text="Sign In" />
+                              <Label fx:id="deniedLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="251.0" prefHeight="20.0" prefWidth="129.0" textAlignment="JUSTIFY" wrapText="true">
+                                 <font>
+                                    <Font size="14.0" />
                                  </font>
                               </Label>
                            </children>
-                           <VBox.margin>
-                              <Insets left="20.0" top="30.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <ImageView fx:id="ClassicImg" accessibleRole="BUTTON" fitHeight="170.0" fitWidth="500.0" preserveRatio="true">
-                           <image>
-                              <Image url="@images/1.jpg" />
-                           </image>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="167.0" text="Year: 1994" textFill="#a49d9d">
-                                 <font>
-                                    <Font name="Cambria" size="24.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </HBox>
+                        </AnchorPane>
                         <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                            <VBox.margin>
                               <Insets bottom="20.0" top="20.0" />
@@ -109,7 +110,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" styleClass="search-button" stylesheets="@style.css" textFill="#dad6d6">
+                              <Button mnemonicParsing="false" onAction="#mostRecent" prefHeight="50.0" prefWidth="270.0" styleClass="search-button" stylesheets="@style.css" text="Movies to come" textFill="#dad6d6">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -148,9 +149,20 @@
                         <Polyline fill="CHARTREUSE" points="-50.0, -40.0, 0.0, 60.0, 0.0, 60.0, -50.0, -40.0" strokeType="INSIDE" />
                         <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button layoutY="38.0" mnemonicParsing="false" onAction="#BranchOpen" prefHeight="25.0" prefWidth="116.0" styleClass="search-button" stylesheets="@style.css" text="Show Branches" />
+                              <Button layoutY="39.0" mnemonicParsing="false" onAction="#BranchOpen" prefHeight="25.0" prefWidth="116.0" styleClass="search-button" stylesheets="@style.css" text="Show Branches" />
                               <Button layoutX="511.0" layoutY="30.0" mnemonicParsing="false" onAction="#LoginDetected" prefHeight="42.0" prefWidth="64.0" styleClass="search-button" stylesheets="@style.css" text="Sign in" />
-                              <Button layoutX="143.0" layoutY="38.0" mnemonicParsing="false" onAction="#ListOpen" prefHeight="25.0" prefWidth="116.0" styleClass="search-button" stylesheets="@style.css" text="List Of Movies" />
+                              <Button layoutX="123.0" layoutY="39.0" mnemonicParsing="false" onAction="#ListOpen" prefHeight="25.0" prefWidth="116.0" styleClass="search-button" stylesheets="@style.css" text="List Of Movies" />
+                              <Button layoutX="247.0" layoutY="39.0" mnemonicParsing="false" onAction="#homeWatchOpen" prefHeight="25.0" prefWidth="116.0" styleClass="search-button" stylesheets="@style.css" text="Home Tickets" />
+                              <Button layoutX="371.0" layoutY="39.0" mnemonicParsing="false" onAction="#multiTicketsOpen" prefHeight="25.0" prefWidth="116.0" styleClass="search-button" stylesheets="@style.css" text="20 Tickets (discount)">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Button>
+                              <Label fx:id="logInLabel" layoutX="260.0" layoutY="92.0" prefHeight="17.0" prefWidth="247.0" textFill="RED">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
                            </children></Pane>
                         <ImageView fitHeight="50.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -179,6 +191,11 @@
                               </ImageView>
                            </children>
                         </HBox>
+                        <GridPane fx:id="loginGrid" prefHeight="166.0" prefWidth="353.0">
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
                      </children>
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="10.0" />
@@ -204,10 +221,5 @@
             </VBox>
          </center>
       </BorderPane>
-      <GridPane fx:id="loginGrid" layoutX="921.0" layoutY="72.0" prefHeight="166.0" prefWidth="353.0">
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
    </children>
 </AnchorPane>

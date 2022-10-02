@@ -22,15 +22,13 @@ public class Hall implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "branch_id")
-    private Branch branch;
+    private Branch branch=null;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "map_id", referencedColumnName = "id")
-    private Map map;
-
-    @OneToMany(cascade = CascadeType.MERGE,fetch = FetchType.LAZY, mappedBy = "hall")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "hall", orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
     private List<Time> screeningTime;
+
+    private int seatsNum=80;
 
     public String getName() {
         return name;
@@ -52,14 +50,6 @@ public class Hall implements Serializable {
         this.branch = branch;
     }
 
-    public Map getMap(){
-        return this.map;
-    }
-
-    public void setMap(Map map){
-        this.map=map;
-    }
-
     public List<Time> getScreeningTime(){
         return this.screeningTime;
     }
@@ -70,5 +60,9 @@ public class Hall implements Serializable {
 
     public void addScreeningTime(Time time){
         this.screeningTime.add(time);
+    }
+
+    public int getSeatsNum() {
+        return seatsNum;
     }
 }

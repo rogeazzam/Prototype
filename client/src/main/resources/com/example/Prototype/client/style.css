@@ -61,6 +61,21 @@
 -fx-background-image: url('images/movieBack.jpeg')
 }
 
+.background-costumer_profile{
+-fx-background-image: url('images/costumer_profile_back.jpg')
+}
+
+.background-home_cinema{
+-fx-background-image: url('images/home_cinema.png')
+}
+
+.background-dark_background{
+-fx-background-image: url('images/dark_background.jpg')
+}
+.background-seats_background{
+-fx-background-image: url('images/seats.jpg')
+}
+
 .seat-color{
     -fx-background-color: #800020;
 }

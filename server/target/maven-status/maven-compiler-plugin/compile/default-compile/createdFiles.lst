@@ -5,6 +5,8 @@ com\example\Prototype\client\ocsf\AbstractServer$1.class
 com\example\Prototype\client\App.class
 com\example\Prototype\client\SimpleServer.class
 com\example\Prototype\client\ocsf\OriginatorMessage.class
+com\example\Prototype\client\SendMail.class
 com\example\Prototype\client\ocsf\AbstractServer.class
 com\example\Prototype\client\ocsf\ObservableServer.class
+com\example\Prototype\client\SendMail$1.class
 com\example\Prototype\client\ocsf\AdaptableServer.class

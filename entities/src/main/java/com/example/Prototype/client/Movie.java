@@ -44,7 +44,7 @@ public class Movie implements Serializable {
     )
     private List<Hall> halls;*/
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "movies")
     private List<MovieList> lists;
     
     Movie(){

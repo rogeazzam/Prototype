@@ -7,6 +7,11 @@ import javax.persistence.Table;
 @Table(name="person")
 public class ContentManager extends Person{
 
+    public ContentManager(){
+        super();
+        this.type="ContentManager";
+    }
+
     public ContentManager(String firstname, String lastname, String Mail, String Password, String UserName){
         super(firstname,lastname,Mail,Password,UserName);
         this.type="ContentManager";

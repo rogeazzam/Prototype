@@ -15,13 +15,13 @@ public class Branch implements Serializable {
 	private int id;
 
 	@NotNull
-	@Column(name="branch_name")
+	@Column(name="branch_name", unique = true)
 	private String name;
 
 	@Column(name="branch_imagesrc")
 	private String ImgSrc;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "movies_id")
 	private MovieList movies;
 	
@@ -31,15 +31,28 @@ public class Branch implements Serializable {
 	@Column(name="branch_address")
 	private String StreetAddress;
 
-	@ManyToMany(mappedBy = "branches")
+	@OneToOne(
+			cascade = {CascadeType.ALL}
+	)
+	@JoinColumn(
+			name = "branch_manager",
+			referencedColumnName = "id"
+	)
+	private Person manager;
+
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "branches")
 	private List<BranchesList> lists;
 
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "branch")
 	private List<Hall> halls;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "branch")
+	private List<Person> employees;
+
 	public Branch(){
 		this.lists=new ArrayList<BranchesList>();
 		this.halls=new ArrayList<Hall>();
+		this.employees=new ArrayList<Person>();
 	}
 	
 	public Branch(String name,String ImgSrc,String City,String StreetAddress){
@@ -50,6 +63,7 @@ public class Branch implements Serializable {
 		this.movies=new MovieList();
 		this.lists=new ArrayList<BranchesList>();
 		this.halls=new ArrayList<Hall>();
+		this.employees=new ArrayList<Person>();
 	}
 
 	public int getId(){
@@ -106,5 +120,37 @@ public class Branch implements Serializable {
 
 	public void setHall(Hall hall){
 		this.halls.add(hall);
+	}
+
+	public List<BranchesList> getLists() {
+		return lists;
+	}
+
+	public void setLists(List<BranchesList> lists) {
+		this.lists = lists;
+	}
+
+	public void addBranchesList(BranchesList branchesList){
+		this.lists.add(branchesList);
+	}
+
+	public Person getManager() {
+		return manager;
+	}
+
+	public void setManager(BranchManager manager) {
+		this.manager = manager;
+	}
+
+	public List<Person> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Person> employees) {
+		this.employees = employees;
+	}
+
+	public void addEmployee(Employee employee){
+		this.employees.add(employee);
 	}
 }

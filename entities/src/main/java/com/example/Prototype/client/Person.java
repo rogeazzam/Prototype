@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "person")
-public class Person implements Serializable {
+public abstract class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -29,11 +29,22 @@ public class Person implements Serializable {
     private String Password;
 
     @NotNull
-    @Column(name="user_name")
+    @Column(name="user_name", unique = true)
     private String UserName;
 
     @Column(name="class_name")
     protected String type;
+
+    @NotNull
+    private boolean loggedIn=false;
+
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            mappedBy = "manager"
+    )
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
 
     public Person(){}
 
@@ -101,5 +112,22 @@ public class Person implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
     }
 }

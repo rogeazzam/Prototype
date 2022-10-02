@@ -41,44 +41,24 @@ public class ShowMovieCostumerController {
         Image image=new Image(getClass().getResourceAsStream(movie.getImgSrc()));
         movieImg.setImage(image);
         movieText.setText(movie.getText());
-        for(int i=0; i < movie.getScreeningTime().size(); i++) {
-            screeningTimeLabel.setText("Date of screening: " + movie.getScreeningTime().get(i).getDay()
-                    + "/" + movie.getScreeningTime().get(i).getMonth() + "/" + movie.getScreeningTime().get(i).getYear() + "   "
-                    + "At " + movie.getScreeningTime().get(i).getBegTime()+"\n");
-        }
-
-        int col=0,row=1,count=0;
-        seatChosen=new int[80];
-        for(int i=0;i<80;i++)
-            seatChosen[i]=0;
-        seats=new Button[80];
-
-        for(int i = 0; i < 80 ; i++){
-            if(col==8){
-                col=0;
-                row++;
+        screeningTimeLabel.setText("");
+        screeningTimeLabel.setWrapText(true);
+        for (int i=0; i < movie.getScreeningTime().size(); i++) {
+            if(movie.getScreeningTime().get(i).getMap()!=null) {
+                String Date = movie.getScreeningTime().get(i).getDay()
+                        + "/" + movie.getScreeningTime().get(i).getMonth() + "/" + movie.getScreeningTime().get(i).getYear();
+                screeningTimeLabel.setText(screeningTimeLabel.getText() + "Date of screening: " + Date + "   "
+                        + "At " + movie.getScreeningTime().get(i).getBegTime()+" Branch: " + movie.getScreeningTime().get(i).getHall().getBranch().getName()
+                            + "    Hall: " + movie.getScreeningTime().get(i).getHall().getName() + "\n");
             }
-            seats[i]=new Button();
-            seats[i].setMinWidth(40);
-            seats[i].setStyle("-fx-background-color: #800020");
-            int finalI = i;
-            seats[i].setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println("hii");
-                    if(seatChosen[finalI]==0) {
-                        seatChosen[finalI] = 1;
-                        seats[finalI].setStyle("-fx-background-color: #8E8E8E");
-                    }
-                    else if(seatChosen[finalI]==1) {
-                        seatChosen[finalI] = 0;
-                        seats[finalI].setStyle("-fx-background-color: #800020");
-                    }
-                }
-            });
-
-            grid.add(seats[i],col++,row);
-            GridPane.setMargin(seats[i], new Insets(0,0,10,10));
         }
     }
+
+    @FXML
+    void backOP(ActionEvent event) {
+        App.myStage.setScene(SecondaryController.saveScene);
+        App.myStage.setMaximized(true);
+        App.myStage.show();
+    }
+
 }

@@ -1,7 +1,12 @@
 package com.example.Prototype.client;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "map")
@@ -10,27 +15,40 @@ public class Map implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String seats;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "map", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Seat> seats=new ArrayList<Seat>();
 
     @Column(name = "NumOfSeats")
     private int size;
 
-    @OneToOne(mappedBy = "map")
-    private Hall hall;
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            mappedBy = "map"
+    )
+    private Time time;
 
     Map(){
         this.size=80;
-        seats="";
-        for(int i=0; i < 80; i++)
-            seats+="0";
+        for (int i = 0; i < 80; i++) {
+            char c=(char)((int)('a') + (int) i/8);
+            String name=c + String.valueOf((i%8) + 1);
+            Seat seat = new Seat();
+            seat.setMap(this);
+            seat.setName(name);
+            CinemaTicket ticket=new CinemaTicket(time);
+            seat.setTicket(ticket);
+            ticket.setSeat(seat);
+            seats.add(seat);
+        }
     }
 
-    public String getSeats(){
+    public List<Seat> getSeats(){
         return this.seats;
     }
 
-    public void setSeats(String seats){
-        this.seats=seats;
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
 
     public int getSize() {
@@ -41,11 +59,17 @@ public class Map implements Serializable {
         this.size = size;
     }
 
-    public Hall getHall() {
-        return hall;
+    public Time getTime(){
+        if(time!=null)
+            return this.time;
+        return null;
     }
 
-    public void setHall(Hall hall){
-        this.hall=hall;
+    public void setTime(Time time){
+        this.time=time;
+        for(Seat seat:seats) {
+            time.addTicket(seat.getTicket());
+            seat.getTicket().setDetails(time);
+        }
     }
 }

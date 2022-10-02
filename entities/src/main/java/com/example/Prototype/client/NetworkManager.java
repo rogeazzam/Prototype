@@ -8,6 +8,11 @@ import javax.persistence.Table;
 public class NetworkManager extends Person{
     //private List<Report> reports;
 
+    public NetworkManager(){
+        super();
+        this.type="NetworkManager";
+    }
+
     public NetworkManager(String firstname, String lastname, String Mail, String Password, String UserName){
         super(firstname,lastname,Mail,Password,UserName);
         this.type="NetworkManager";

@@ -54,3 +54,7 @@
     -fx-background-color: #800020;
         -fx-background-radius: 30;
 }
+
+.background-costumer_profile{
+-fx-background-image: url('images/home_cinema.png')
+}

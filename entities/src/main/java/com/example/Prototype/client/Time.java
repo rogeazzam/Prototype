@@ -1,9 +1,9 @@
 package com.example.Prototype.client;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="times")
@@ -26,9 +26,23 @@ public class Time implements Serializable {
 	@JoinColumn(name = "movie_id")
 	private Movie movie;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "hall_id")
 	private Hall hall;
+
+	@OneToOne(
+			cascade = {CascadeType.ALL}
+	)
+	@JoinColumn(
+			name = "movie_map",
+			referencedColumnName = "id"
+	)
+	private Map map;
+
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "details")
+	private List<Ticket> tickets;
+
+	private int availableSeats=80;
 
 	public Time(){
 		super();
@@ -37,6 +51,7 @@ public class Time implements Serializable {
 		this.year=2000;
 		this.begTime="00:00";
 		this.endTime="02:00";
+		this.tickets=new ArrayList<Ticket>();
 	}
 	
 	public Time(int day,int month,int year,String begTime,String endTime){
@@ -45,6 +60,7 @@ public class Time implements Serializable {
 		this.year=year;
 		this.begTime=begTime;
 		this.endTime=endTime;
+		this.tickets=new ArrayList<Ticket>();
 	}
 
 	public int getId(){
@@ -105,6 +121,38 @@ public class Time implements Serializable {
 
 	public Hall getHall() {
 		return hall;
+	}
+
+	public Map getMap(){
+		return this.map;
+	}
+
+	public void setMap(Map map){
+		this.map=map;
+	}
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
+
+	public void addTicket(Ticket ticket){
+		this.tickets.add(ticket);
+	}
+
+	public void deleteTicket(Ticket ticket){
+		this.tickets.remove(ticket);
+	}
+
+	public int getAvailableSeats() {
+		return availableSeats;
+	}
+
+	public void setAvailableSeats(int availableSeats) {
+		this.availableSeats = availableSeats;
 	}
 
 	public boolean greater(Time other){

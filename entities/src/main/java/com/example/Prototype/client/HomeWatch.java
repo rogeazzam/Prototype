@@ -11,7 +11,7 @@ public class HomeWatch implements Serializable {
     private int id;
 
     @OneToOne(
-            cascade = {CascadeType.ALL}
+            cascade = CascadeType.ALL
     )
     @JoinColumn(
             name = "home_movies",

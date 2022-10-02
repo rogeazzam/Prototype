@@ -26,10 +26,19 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-    	EventBus.getDefault().register(this);
+    	//EventBus.getDefault().register(this);
     	client = SimpleClient.getClient();
     	client.openConnection();
-        scene = new Scene(loadFXML("primary"));
+        //scene = new Scene(loadFXML("Secondary"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("secondary.fxml"));
+        Parent root = loader.load();
+
+        SecondaryController itemController = loader.getController();
+        itemController.setData();
+
+        Scene scene=new Scene(root);
+
         stage.setScene(scene);
         App.sceneStack.push(scene);
         App.myStage=stage;
@@ -54,49 +63,4 @@ public class App extends Application {
         launch();
     }
 
-    @Subscribe
-    public void onMovieListEvent(MovieListEvent event){
-        Platform.runLater(()->{
-            MovieList movies= event.getMovies();
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("movielist.fxml"));
-                Parent root = loader.load();
-
-                MovieListController itemController = loader.getController();
-                itemController.setData(movies);
-
-                App.myStage.setScene(new Scene(root));
-                App.myStage.setMaximized(true);
-                App.myStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    static ProfileController itemController;
-    static Scene saveScene;
-
-    @Subscribe
-    public void onLogin(Person person){
-        Platform.runLater(()->{
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
-                Parent root = loader.load();
-
-                itemController = loader.getController();
-                itemController.setData(person);
-
-                Scene newscene=new Scene(root);
-                saveScene=newscene;
-                App.myStage.setScene(newscene);
-                App.myStage.setMaximized(true);
-                sceneStack.push(newscene);
-                App.myStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        EventBus.getDefault().unregister(this);
-    }
 }
