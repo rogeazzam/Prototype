@@ -12,4 +12,4 @@ The project is a server-client (tcp/ip protocol), and uses MySql database.
 
 ## Notes:
 - Before running go to server->SendMail, and put your gmail account mail and password.
-- Go to resources->hibernate.proporties in each of the client/entities/server, and add your database name, and mysql password.
+- Go to resources->hibernate.proporties in each of the client/entities/server, and add your database name, and MySql password.
