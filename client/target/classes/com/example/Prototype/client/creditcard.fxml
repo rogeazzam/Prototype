@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.CreditCardController">
+   <children>
+      <ImageView fitHeight="414.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/CC.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="23.0" layoutY="25.0" text="credit card number:">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="23.0" layoutY="79.0" text="validity:">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="119.0" text="cvv:">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="167.0" text="ID:">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="17.0" layoutY="213.0" text="First Name:">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="261.0" text="Last Name:">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="creditCardNum" layoutX="151.0" layoutY="21.0" promptText="16 digits" />
+      <TextField fx:id="validityMonth" layoutX="90.0" layoutY="74.0" prefHeight="26.0" prefWidth="46.0" promptText="00" />
+      <Label layoutX="137.0" layoutY="79.0" text="/" />
+      <TextField fx:id="validityYear" layoutX="142.0" layoutY="74.0" prefHeight="26.0" prefWidth="46.0" promptText="00" />
+      <TextField fx:id="cvvNum" layoutX="58.0" layoutY="115.0" prefHeight="26.0" prefWidth="61.0" promptText="4 digits" />
+      <ImageView fitHeight="65.0" fitWidth="82.0" layoutX="125.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/cvv.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="IDText" layoutX="50.0" layoutY="163.0" prefHeight="26.0" prefWidth="139.0" />
+      <TextField fx:id="FirstNameTxt" layoutX="84.0" layoutY="208.0" prefHeight="26.0" prefWidth="110.0" />
+      <TextField fx:id="LastNameTxt" layoutX="84.0" layoutY="256.0" prefHeight="26.0" prefWidth="110.0" />
+      <Button layoutX="109.0" layoutY="340.0" mnemonicParsing="false" onAction="#CheckCredit" style="-fx-background-color: black;" text="Check" textFill="#1796cc" />
+      <Label layoutX="428.0" layoutY="344.0" text="Price: " />
+      <Label fx:id="priceLabel" layoutX="478.0" layoutY="344.0" prefHeight="17.0" prefWidth="61.0" />
+      <Button layoutX="164.0" layoutY="340.0" mnemonicParsing="false" onAction="#cancelOrder" style="-fx-background-color: black;" text="Cancel" textFill="#1796cc" />
+      <Label layoutX="20.0" layoutY="304.0" text="Email:">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="emailText" layoutX="84.0" layoutY="300.0" prefHeight="26.0" prefWidth="110.0" />
+      <Label fx:id="errorMsg" layoutX="232.0" layoutY="344.0" prefHeight="17.0" prefWidth="163.0" />
+   </children>
+</AnchorPane>

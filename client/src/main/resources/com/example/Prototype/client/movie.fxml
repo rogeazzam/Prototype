@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane accessibleRole="BUTTON" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="260.0" styleClass="fruit-item" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.MovieController">
+   <children>
+      <Label fx:id="MovieName" alignment="CENTER" layoutX="28.0" layoutY="14.0" prefHeight="21.0" prefWidth="204.0" stylesheets="@style.css" text="The Shawshank Redemption" textAlignment="JUSTIFY" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font>
+         <styleClass>
+            <String fx:value="fruit-item" />
+            <String fx:value="shadow" />
+         </styleClass>
+      </Label>
+      <Button fx:id="MyBtn" layoutY="202.0" mnemonicParsing="false" onAction="#showIt" prefHeight="28.0" prefWidth="260.0" styleClass="search-button" stylesheets="@style.css" text="Click to update screening time">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font></Button>
+      <ImageView fx:id="btnImage" accessibleRole="BUTTON" fitHeight="172.0" fitWidth="260.0" layoutY="32.0" onMouseClicked="#ImgHit" pickOnBounds="true">
+         <image>
+            <Image url="@images/1.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

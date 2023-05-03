@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.ProfileController">
+   <children>
+      <Label fx:id="welcomeUser" alignment="CENTER" layoutX="527.0" layoutY="52.0" prefHeight="29.0" prefWidth="262.0" textAlignment="CENTER" />
+      <ScrollPane layoutX="150.0" layoutY="121.0" prefHeight="676.0" prefWidth="1116.0">
+         <content>
+            <GridPane fx:id="processGrid" prefHeight="0.0" prefWidth="1105.0">
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
+      <Button layoutX="1217.0" layoutY="14.0" mnemonicParsing="false" onAction="#logOutOp" prefHeight="25.0" prefWidth="84.0" styleClass="search-button" stylesheets="@style.css" text="Log out" />
+      <Button fx:id="reportBtn" layoutX="723.0" layoutY="87.0" mnemonicParsing="false" onAction="#reportsEvent" prefHeight="29.0" prefWidth="132.0" styleClass="search-button" stylesheets="@style.css" text="show reports" visible="false" />
+      <Button layoutX="573.0" layoutY="87.0" mnemonicParsing="false" onAction="#moviesEvent" prefHeight="29.0" prefWidth="132.0" styleClass="search-button" stylesheets="@style.css" text="show movies" />
+      <Button fx:id="addBtn" layoutX="723.0" layoutY="87.0" mnemonicParsing="false" onAction="#addMovieOp" prefHeight="29.0" prefWidth="132.0" styleClass="search-button" stylesheets="@style.css" text="Add Movie" visible="false" />
+      <Label fx:id="titleLabel" layoutX="640.0" layoutY="27.0" prefHeight="25.0" prefWidth="35.0">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="420.0" layoutY="87.0" mnemonicParsing="false" onAction="#updatePurplePass" prefHeight="29.0" prefWidth="132.0" styleClass="search-button" stylesheets="@style.css" text="Purple Pass" />
+      <Button fx:id="showComplaintsBtn" layoutX="723.0" layoutY="87.0" mnemonicParsing="false" onAction="#showComplaintsOP" prefHeight="29.0" prefWidth="132.0" styleClass="search-button" stylesheets="@style.css" text="Show Complaints" visible="false" />
+      <Button fx:id="priceChange" layoutX="871.0" layoutY="87.0" mnemonicParsing="false" onAction="#priceChangeEvent" prefHeight="29.0" prefWidth="132.0" styleClass="search-button" stylesheets="@style.css" text="Price Change Permit" visible="false" />
+   </children>
+</AnchorPane>

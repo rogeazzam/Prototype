@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" styleClass="search-button" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Prototype.client.ShowMovieController">
+   <children>
+      <ImageView fx:id="movieImg" fitHeight="317.0" fitWidth="416.0" layoutX="62.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="movieText" layoutX="62.0" layoutY="613.0" prefHeight="170.0" prefWidth="635.0" text="Label" />
+      <Label fx:id="movieName" layoutX="62.0" layoutY="25.0" prefHeight="17.0" prefWidth="237.0" text="Label">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font></Label>
+      <ChoiceBox fx:id="DayOp" layoutX="872.0" layoutY="428.0" prefHeight="25.0" prefWidth="48.0" />
+      <Label layoutX="886.0" layoutY="405.0" text="Day" />
+      <ChoiceBox fx:id="MonthOp" layoutX="725.0" layoutY="428.0" prefHeight="25.0" prefWidth="48.0" />
+      <ChoiceBox fx:id="YearOp" layoutX="781.0" layoutY="428.0" prefHeight="25.0" prefWidth="80.0" />
+      <ChoiceBox fx:id="BegMinute" layoutX="1161.0" layoutY="428.0" prefHeight="25.0" prefWidth="80.0" />
+      <ChoiceBox fx:id="BegHour" layoutX="1053.0" layoutY="428.0" prefHeight="25.0" prefWidth="80.0" />
+      <Label layoutX="731.0" layoutY="405.0" text="Month" />
+      <Label layoutX="807.0" layoutY="405.0" text="Year" />
+      <Label layoutX="1048.0" layoutY="405.0" text="Hour(begenning)" />
+      <Label layoutX="1153.0" layoutY="405.0" text="Minute(begenning)" />
+      <ChoiceBox fx:id="endHour" layoutX="1054.0" layoutY="581.0" prefHeight="25.0" prefWidth="80.0" />
+      <ChoiceBox fx:id="endMinute" layoutX="1163.0" layoutY="581.0" prefHeight="25.0" prefWidth="80.0" />
+      <Label layoutX="1159.0" layoutY="557.0" text="Minute(ending)" />
+      <Label layoutX="1059.0" layoutY="557.0" text="Hour(ending)" />
+      <Button layoutX="1114.0" layoutY="690.0" mnemonicParsing="false" onAction="#UpdateTime" styleClass="free-delivery-card" stylesheets="@style.css" text="Update screening times" />
+      <Label fx:id="screeningTimeLabel" layoutX="62.0" layoutY="379.0" prefHeight="170.0" prefWidth="393.0">
+         <font>
+            <Font size="21.0" />
+         </font></Label>
+      <Label fx:id="errorMsg" layoutX="717.0" layoutY="742.0" prefHeight="17.0" prefWidth="173.0" textFill="#b21616" />
+      <Button layoutY="2.0" mnemonicParsing="false" onAction="#showMovies" text="Back" />
+      <Button layoutX="1115.0" layoutY="15.0" mnemonicParsing="false" onAction="#DeleteOP" prefHeight="25.0" prefWidth="127.0" styleClass="fruit-item" stylesheets="@style.css" text="Delete Movie" />
+      <GridPane fx:id="btnsGrid" layoutX="428.0" layoutY="368.0" prefHeight="148.0" prefWidth="218.0">
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <ChoiceBox fx:id="updateChoice" layoutX="479.0" layoutY="537.0" prefWidth="150.0" />
+      <Label alignment="CENTER" layoutX="475.0" layoutY="515.0" text="Choose time to update" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="priceTxt" layoutX="725.0" layoutY="208.0" />
+      <Label layoutX="646.0" layoutY="210.0" text="New Price:">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font>
+      </Label>
+      <Button layoutX="874.0" layoutY="208.0" mnemonicParsing="false" onAction="#UpdatePrice" styleClass="free-delivery-card" stylesheets="@style.css" text="Update Movie Ticket Price" />
+   </children>
+</AnchorPane>
