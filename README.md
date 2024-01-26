@@ -32,6 +32,9 @@ The project is a server-client (tcp/ip protocol), and uses MySql database.
 
 ![alt text](https://github.com/rogeazzam/Prototype/blob/master/images/11.png)
 
+
+Supposing customer with ID = 2 purchased the seats chosen in the previous image:
+
 ![alt text](https://github.com/rogeazzam/Prototype/blob/master/images/12.png)
 
 ![alt text](https://github.com/rogeazzam/Prototype/blob/master/images/13.png)
