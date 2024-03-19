@@ -1,4 +1,4 @@
-# Prototype
+# Theatre
 ## Summary
 A team project of five people, we produced a project called “Theater”, that can help 
 improve the theater business, and adjust it to the variables instructions during covid-19.
