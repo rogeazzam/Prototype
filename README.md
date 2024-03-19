@@ -1,4 +1,13 @@
 # Theatre
+
+## Table of Contents
+- [Theatre](#theatre)
+  - [Table of Contents](#table-of-contents)
+  - [Summary](#summary)
+  - [Project Overview](#project-overview)
+    - [How to run](#how-to-run)
+    - [Notes](#notes)
+
 ## Summary
 A team project of five people, we produced a project called “Theater”, that can help 
 improve the theater business, and adjust it to the variables instructions during covid-19.
